@@ -1,6 +1,10 @@
 from django.db import models
 
 
+# =========================================
+# USER
+# =========================================
+
 class User(models.Model):
 
     user_id = models.AutoField(
@@ -55,9 +59,7 @@ class User(models.Model):
 
 
     class Meta:
-
-        db_table = 'users'
-        managed = False
+        db_table = "users"
 
 
 # =========================================
@@ -78,10 +80,12 @@ class Category(models.Model):
 
 
     class Meta:
+        db_table = "categories"
 
-        db_table = 'categories'
-        managed = False
 
+# =========================================
+# PRODUCT
+# =========================================
 
 class Product(models.Model):
 
@@ -92,7 +96,7 @@ class Product(models.Model):
     category = models.ForeignKey(
         Category,
         on_delete=models.DO_NOTHING,
-        db_column='category_id'
+        db_column="category_id"
     )
 
     product_type = models.CharField(
@@ -134,10 +138,10 @@ class Product(models.Model):
 
     created_at = models.DateTimeField()
 
-    class Meta:
 
-        db_table = 'products'
-        managed = False
+    class Meta:
+        db_table = "products"
+
 
 # =========================================
 # PRODUCT VARIANT
@@ -152,7 +156,7 @@ class ProductVariant(models.Model):
     product = models.ForeignKey(
         Product,
         on_delete=models.DO_NOTHING,
-        db_column='product_id'
+        db_column="product_id"
     )
 
     size = models.CharField(
@@ -165,9 +169,7 @@ class ProductVariant(models.Model):
 
 
     class Meta:
-
-        db_table = 'product_variants'
-        managed = False
+        db_table = "product_variants"
 
 
 # =========================================
@@ -183,16 +185,14 @@ class Cart(models.Model):
     user = models.OneToOneField(
         User,
         on_delete=models.DO_NOTHING,
-        db_column='user_id'
+        db_column="user_id"
     )
 
     created_at = models.DateTimeField()
 
 
     class Meta:
-
-        db_table = 'cart'
-        managed = False
+        db_table = "cart"
 
 
 # =========================================
@@ -208,13 +208,13 @@ class CartItem(models.Model):
     cart = models.ForeignKey(
         Cart,
         on_delete=models.DO_NOTHING,
-        db_column='cart_id'
+        db_column="cart_id"
     )
 
     variant = models.ForeignKey(
         ProductVariant,
         on_delete=models.DO_NOTHING,
-        db_column='variant_id'
+        db_column="variant_id"
     )
 
     quantity = models.IntegerField(
@@ -223,9 +223,7 @@ class CartItem(models.Model):
 
 
     class Meta:
-
-        db_table = 'cart_items'
-        managed = False
+        db_table = "cart_items"
 
 
 # =========================================
@@ -241,7 +239,7 @@ class Order(models.Model):
     user = models.ForeignKey(
         User,
         on_delete=models.DO_NOTHING,
-        db_column='user_id'
+        db_column="user_id"
     )
 
     order_date = models.DateTimeField()
@@ -258,14 +256,14 @@ class Order(models.Model):
     order_status = models.CharField(
         max_length=50,
         choices=[
-            ('PLACED', 'PLACED'),
-            ('CONFIRMED', 'CONFIRMED'),
-            ('SHIPPED', 'SHIPPED'),
-            ('OUT FOR DELIVERY', 'OUT FOR DELIVERY'),
-            ('DELIVERED', 'DELIVERED'),
-            ('CANCELLED', 'CANCELLED'),
+            ("PLACED", "PLACED"),
+            ("CONFIRMED", "CONFIRMED"),
+            ("SHIPPED", "SHIPPED"),
+            ("OUT FOR DELIVERY", "OUT FOR DELIVERY"),
+            ("DELIVERED", "DELIVERED"),
+            ("CANCELLED", "CANCELLED"),
         ],
-        default='PLACED'
+        default="PLACED"
     )
 
     delivery_name = models.CharField(
@@ -300,14 +298,12 @@ class Order(models.Model):
 
     delivery_country = models.CharField(
         max_length=100,
-        default='India'
+        default="India"
     )
 
 
     class Meta:
-
-        db_table = 'orders'
-        managed = False
+        db_table = "orders"
 
 
 # =========================================
@@ -323,13 +319,13 @@ class OrderItem(models.Model):
     order = models.ForeignKey(
         Order,
         on_delete=models.DO_NOTHING,
-        db_column='order_id'
+        db_column="order_id"
     )
 
     variant = models.ForeignKey(
         ProductVariant,
         on_delete=models.DO_NOTHING,
-        db_column='variant_id'
+        db_column="variant_id"
     )
 
     quantity = models.IntegerField()
@@ -341,9 +337,7 @@ class OrderItem(models.Model):
 
 
     class Meta:
-
-        db_table = 'order_items'
-        managed = False
+        db_table = "order_items"
 
 
 # =========================================
@@ -359,26 +353,24 @@ class Wishlist(models.Model):
     user = models.ForeignKey(
         User,
         on_delete=models.DO_NOTHING,
-        db_column='user_id'
+        db_column="user_id"
     )
 
     product = models.ForeignKey(
         Product,
         on_delete=models.DO_NOTHING,
-        db_column='product_id'
+        db_column="product_id"
     )
 
     created_at = models.DateTimeField()
 
 
     class Meta:
-
-        db_table = 'wishlist'
-        managed = False
+        db_table = "wishlist"
 
         constraints = [
             models.UniqueConstraint(
-                fields=['user', 'product'],
-                name='unique_user_product_wishlist'
+                fields=["user", "product"],
+                name="unique_user_product_wishlist"
             )
         ]
