@@ -28,7 +28,7 @@ SECRET_KEY = os.environ.get(
 
 # Keep True while testing locally.
 # We will change this to False when we deploy.
-DEBUG = False
+DEBUG = True
 
 
 # Local development hosts.
