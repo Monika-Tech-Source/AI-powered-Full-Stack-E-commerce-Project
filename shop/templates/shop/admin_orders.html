@@ -1,0 +1,755 @@
+{% extends 'shop/base.html' %}
+{% load static %}
+
+{% block extra_css %}
+
+<style>
+
+    /* =========================================
+       ADMIN ORDERS PAGE
+       ========================================= */
+
+    .admin-orders-page {
+        width: 100%;
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 30px;
+    }
+
+
+    /* =========================================
+       HEADER
+       ========================================= */
+
+    .admin-orders-header {
+        margin-bottom: 25px;
+    }
+
+    .admin-label {
+        margin: 0 0 8px 0;
+        font-size: 12px;
+        font-weight: bold;
+        letter-spacing: 1.5px;
+        color: #666;
+    }
+
+    .admin-orders-header h1 {
+        margin: 0 0 6px 0;
+        font-size: 32px;
+        color: #111;
+    }
+
+    .admin-orders-header p:last-child {
+        margin: 0;
+        color: #666;
+        font-size: 14px;
+    }
+
+
+    /* =========================================
+       TABLE WRAPPER
+       ========================================= */
+
+    .orders-table-wrapper {
+        width: 100%;
+        background: white;
+        border: 1px solid #ddd;
+        overflow-x: auto;
+    }
+
+
+    /* =========================================
+       TABLE
+       ========================================= */
+
+    .orders-table {
+        width: 100%;
+        border-collapse: collapse;
+        min-width: 850px;
+    }
+
+
+    .orders-table th,
+    .orders-table td {
+        padding: 14px 12px;
+        border-bottom: 1px solid #ddd;
+        text-align: left;
+        vertical-align: middle;
+    }
+
+
+    .orders-table th {
+        background: #f7f7f7;
+        color: #111;
+        font-size: 12px;
+        font-weight: bold;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        white-space: nowrap;
+    }
+
+
+    .orders-table td {
+        font-size: 14px;
+        color: #111;
+    }
+
+
+    .orders-table tbody tr:last-child td {
+        border-bottom: none;
+    }
+
+
+    .orders-table tbody tr:hover {
+        background: #fafafa;
+    }
+
+
+    /* =========================================
+       CUSTOMER PHONE
+       ========================================= */
+
+    .customer-phone {
+        color: #666;
+        font-size: 12px;
+    }
+
+
+    /* =========================================
+       STATUS
+       ========================================= */
+
+    .status-badge {
+        display: inline-block;
+        padding: 6px 9px;
+        font-size: 11px;
+        font-weight: bold;
+        white-space: nowrap;
+        border: 1px solid #ddd;
+        background: #f7f7f7;
+    }
+
+    .status-placed {
+        color: #111;
+    }
+
+    .status-confirmed {
+        color: #111;
+    }
+
+    .status-shipped {
+        color: #111;
+    }
+
+    .status-outfordelivery {
+        color: #111;
+    }
+
+    .status-delivered {
+        color: #111;
+    }
+
+    .status-cancelled {
+        color: #777;
+    }
+
+
+    /* =========================================
+       UPDATE FORM
+       ========================================= */
+
+    .order-update-form {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        flex-wrap: wrap;
+    }
+
+
+    .order-update-form select {
+        min-width: 145px;
+        padding: 8px 9px;
+        border: 1px solid #ccc;
+        background: white;
+        color: #111;
+        font-size: 13px;
+    }
+
+
+    .order-update-form button {
+        padding: 8px 12px;
+        border: none;
+        background: #111;
+        color: white;
+        cursor: pointer;
+        font-size: 12px;
+        white-space: nowrap;
+    }
+
+
+    .order-update-form button:hover {
+        background: #333;
+    }
+
+
+    /* =========================================
+       COMPLETED / CANCELLED
+       ========================================= */
+
+    .completed,
+    .cancelled {
+        display: inline-block;
+        font-size: 12px;
+        font-weight: bold;
+    }
+
+    .completed {
+        color: #111;
+    }
+
+    .cancelled {
+        color: #777;
+    }
+
+
+    /* =========================================
+       NO ORDERS
+       ========================================= */
+
+    .no-orders {
+        text-align: center !important;
+        padding: 40px !important;
+        color: #666 !important;
+    }
+
+
+    /* =========================================
+       TABLET
+       ========================================= */
+
+    @media (max-width: 900px) {
+
+        .admin-orders-page {
+            padding: 20px;
+        }
+
+        .admin-orders-header h1 {
+            font-size: 28px;
+        }
+
+        .orders-table {
+            min-width: 800px;
+        }
+
+    }
+
+
+    /* =========================================
+       MOBILE
+       ========================================= */
+
+    @media (max-width: 600px) {
+
+        .admin-orders-page {
+            padding: 15px;
+        }
+
+
+        /* HEADER */
+
+        .admin-orders-header {
+            margin-bottom: 20px;
+        }
+
+        .admin-orders-header h1 {
+            font-size: 26px;
+            line-height: 1.2;
+        }
+
+        .admin-orders-header p:last-child {
+            line-height: 1.5;
+        }
+
+
+        /* REMOVE TABLE SCROLL */
+
+        .orders-table-wrapper {
+            border: none;
+            background: transparent;
+            overflow-x: visible;
+        }
+
+
+        .orders-table {
+            width: 100%;
+            min-width: 0;
+            border-collapse: separate;
+            border-spacing: 0;
+        }
+
+
+        .orders-table thead {
+            display: none;
+        }
+
+
+        .orders-table tbody {
+            display: block;
+            width: 100%;
+        }
+
+
+        /* =========================================
+           ORDER CARD
+           ========================================= */
+
+        .orders-table tbody tr {
+            display: block;
+            width: 100%;
+            background: white;
+            border: 1px solid #ddd;
+            margin-bottom: 15px;
+            padding: 15px;
+        }
+
+
+        .orders-table tbody tr:hover {
+            background: white;
+        }
+
+
+        /* =========================================
+           ORDER FIELDS
+           ========================================= */
+
+        .orders-table tbody td {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            width: 100%;
+            padding: 11px 0;
+            border-bottom: 1px solid #eee;
+            text-align: right;
+            font-size: 14px;
+            overflow-wrap: anywhere;
+        }
+
+
+        .orders-table tbody td:last-child {
+            border-bottom: none;
+        }
+
+
+        /* =========================================
+           MOBILE LABELS
+           ========================================= */
+
+        .orders-table tbody td::before {
+            content: attr(data-label);
+            flex-shrink: 0;
+            color: #666;
+            font-size: 11px;
+            font-weight: bold;
+            text-transform: uppercase;
+            text-align: left;
+        }
+
+
+        /* =========================================
+           CUSTOMER
+           ========================================= */
+
+        .orders-table tbody td:nth-child(2) {
+            align-items: flex-start;
+        }
+
+
+        .customer-details {
+            text-align: right;
+        }
+
+
+        /* =========================================
+           STATUS
+           ========================================= */
+
+        .orders-table tbody td:nth-child(6) {
+            align-items: center;
+        }
+
+
+        /* =========================================
+           UPDATE SECTION
+           ========================================= */
+
+        .orders-table tbody td:nth-child(7) {
+            display: block;
+            padding-top: 15px;
+        }
+
+
+        .orders-table tbody td:nth-child(7)::before {
+            display: block;
+            margin-bottom: 10px;
+        }
+
+
+        .order-update-form {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            gap: 8px;
+        }
+
+
+        .order-update-form select {
+            width: 100%;
+            min-width: 0;
+            padding: 10px;
+        }
+
+
+        .order-update-form button {
+            width: 100%;
+            padding: 10px;
+            text-align: center;
+        }
+
+
+        /* COMPLETED / CANCELLED */
+
+        .orders-table tbody td:nth-child(7) .completed,
+        .orders-table tbody td:nth-child(7) .cancelled {
+            display: block;
+            text-align: center;
+            width: 100%;
+            padding: 10px;
+            background: #f7f7f7;
+            border: 1px solid #ddd;
+        }
+
+
+        /* EMPTY STATE */
+
+        .orders-table tbody .no-orders {
+            display: block;
+            width: 100%;
+            padding: 30px 15px !important;
+            text-align: center !important;
+        }
+
+    }
+
+</style>
+
+{% endblock %}
+
+
+{% block content %}
+
+<section class="admin-orders-page">
+
+
+    <!-- =========================================
+         HEADER
+         ========================================= -->
+
+    <div class="admin-orders-header">
+
+        <p class="admin-label">
+            ADMIN PANEL
+        </p>
+
+        <h1>
+            Order Management
+        </h1>
+
+        <p>
+            Manage customer orders and update delivery status.
+        </p>
+
+    </div>
+
+
+    <!-- =========================================
+         ORDERS TABLE
+         ========================================= -->
+
+    <div class="orders-table-wrapper">
+
+        <table class="orders-table">
+
+            <thead>
+
+                <tr>
+
+                    <th>
+                        Order ID
+                    </th>
+
+                    <th>
+                        Customer
+                    </th>
+
+                    <th>
+                        Date
+                    </th>
+
+                    <th>
+                        Total
+                    </th>
+
+                    <th>
+                        Payment
+                    </th>
+
+                    <th>
+                        Status
+                    </th>
+
+                    <th>
+                        Update
+                    </th>
+
+                </tr>
+
+            </thead>
+
+
+            <tbody>
+
+                {% for order in orders %}
+
+                <tr>
+
+
+                    <!-- ORDER ID -->
+
+                    <td data-label="Order ID">
+
+                        #{{ order.order_id }}
+
+                    </td>
+
+
+                    <!-- CUSTOMER -->
+
+                    <td data-label="Customer">
+
+                        <div class="customer-details">
+
+                            {{ order.delivery_name }}
+
+                            <br>
+
+                            <small class="customer-phone">
+                                {{ order.delivery_phone }}
+                            </small>
+
+                        </div>
+
+                    </td>
+
+
+                    <!-- DATE -->
+
+                    <td data-label="Date">
+
+                        {{ order.order_date|date:"d M Y" }}
+
+                    </td>
+
+
+                    <!-- TOTAL -->
+
+                    <td data-label="Total">
+
+                        ₹{{ order.total_amount|floatformat:2 }}
+
+                    </td>
+
+
+                    <!-- PAYMENT -->
+
+                    <td data-label="Payment">
+
+                        {{ order.payment_method }}
+
+                    </td>
+
+
+                    <!-- STATUS -->
+
+                    <td data-label="Status">
+
+                        <span
+                            class="status-badge status-{{ order.order_status|lower|cut:' ' }}"
+                        >
+
+                            {{ order.order_status }}
+
+                        </span>
+
+                    </td>
+
+
+                    <!-- UPDATE -->
+
+                    <td data-label="Update">
+
+
+                        {% if order.order_status == "PLACED" %}
+
+                        <form
+                            method="POST"
+                            action="{% url 'admin_update_order_status' order.order_id %}"
+                            class="order-update-form"
+                        >
+
+                            {% csrf_token %}
+
+                            <select name="order_status">
+
+                                <option value="CONFIRMED">
+                                    CONFIRMED
+                                </option>
+
+                                <option value="CANCELLED">
+                                    CANCELLED
+                                </option>
+
+                            </select>
+
+                            <button type="submit">
+                                UPDATE
+                            </button>
+
+                        </form>
+
+
+                        {% elif order.order_status == "CONFIRMED" %}
+
+                        <form
+                            method="POST"
+                            action="{% url 'admin_update_order_status' order.order_id %}"
+                            class="order-update-form"
+                        >
+
+                            {% csrf_token %}
+
+                            <select name="order_status">
+
+                                <option value="SHIPPED">
+                                    SHIPPED
+                                </option>
+
+                                <option value="CANCELLED">
+                                    CANCELLED
+                                </option>
+
+                            </select>
+
+                            <button type="submit">
+                                UPDATE
+                            </button>
+
+                        </form>
+
+
+                        {% elif order.order_status == "SHIPPED" %}
+
+                        <form
+                            method="POST"
+                            action="{% url 'admin_update_order_status' order.order_id %}"
+                            class="order-update-form"
+                        >
+
+                            {% csrf_token %}
+
+                            <select name="order_status">
+
+                                <option value="OUT FOR DELIVERY">
+                                    OUT FOR DELIVERY
+                                </option>
+
+                            </select>
+
+                            <button type="submit">
+                                UPDATE
+                            </button>
+
+                        </form>
+
+
+                        {% elif order.order_status == "OUT FOR DELIVERY" %}
+
+                        <form
+                            method="POST"
+                            action="{% url 'admin_update_order_status' order.order_id %}"
+                            class="order-update-form"
+                        >
+
+                            {% csrf_token %}
+
+                            <select name="order_status">
+
+                                <option value="DELIVERED">
+                                    DELIVERED
+                                </option>
+
+                            </select>
+
+                            <button type="submit">
+                                UPDATE
+                            </button>
+
+                        </form>
+
+
+                        {% elif order.order_status == "DELIVERED" %}
+
+                        <span class="completed">
+                            COMPLETED
+                        </span>
+
+
+                        {% elif order.order_status == "CANCELLED" %}
+
+                        <span class="cancelled">
+                            CANCELLED
+                        </span>
+
+                        {% endif %}
+
+
+                    </td>
+
+
+                </tr>
+
+
+                {% empty %}
+
+                <tr>
+
+                    <td
+                        colspan="7"
+                        class="no-orders"
+                    >
+                        No orders found.
+                    </td>
+
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</section>
+
+{% endblock %}

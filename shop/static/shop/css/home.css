@@ -1,0 +1,727 @@
+/* =========================================================
+   BHAVIKA HOMEPAGE
+   ========================================================= */
+
+:root {
+    --home-black: #171717;
+    --home-dark: #242424;
+    --home-white: #ffffff;
+    --home-cream: #f8f6f2;
+    --home-gray: #737373;
+    --home-light-gray: #e9e7e3;
+    --home-red: #b40000;
+}
+
+
+/* =========================================================
+   GENERAL HOMEPAGE
+   ========================================================= */
+
+.hero,
+.categories,
+.products-section,
+.brand-message {
+    width: 92%;
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 75px 0 40px;
+}
+
+
+/* =========================================================
+   HERO
+   ========================================================= */
+
+.hero {
+    height: 540px;
+    margin-top: 28px;
+    position: relative;
+    overflow: hidden;
+
+    background: var(--home-red);
+    border-radius: 16px;
+}
+
+
+/* Hero image */
+
+.hero-image {
+    position: absolute;
+    inset: 0;
+
+    width: 100%;
+    height: 100%;
+
+    z-index: 1;
+}
+
+.hero-image img {
+    width: 100%;
+    height: 100%;
+
+    display: block;
+
+    object-fit: cover;
+    object-position: center;
+
+    transition: transform 0.8s ease;
+}
+
+.hero:hover .hero-image img {
+    transform: scale(1.02);
+}
+
+
+/* Dark/red image overlay */
+
+.hero-image::after {
+    content: "";
+
+    position: absolute;
+    inset: 0;
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(180, 0, 0, 1) 0%,
+            rgba(180, 0, 0, 0.97) 22%,
+            rgba(180, 0, 0, 0.80) 38%,
+            rgba(180, 0, 0, 0.25) 57%,
+            rgba(180, 0, 0, 0) 75%
+        );
+}
+
+
+/* Hero content */
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+
+    width: 50%;
+    height: 100%;
+
+    padding: 55px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    color: var(--home-white);
+}
+
+
+.hero-subtitle {
+    margin-bottom: 18px;
+
+    font-size: 11px;
+    font-weight: 600;
+
+    letter-spacing: 3px;
+    text-transform: uppercase;
+}
+
+
+.hero h1 {
+    margin-bottom: 24px;
+
+    font-family: Georgia, "Times New Roman", serif;
+
+    font-size: 52px;
+    font-weight: 400;
+    line-height: 0.98;
+
+    letter-spacing: -1px;
+}
+
+
+.hero-text {
+    max-width: 380px;
+
+    margin-bottom: 30px;
+
+    font-size: 14px;
+    line-height: 1.7;
+}
+
+
+/* =========================================================
+   HERO BUTTON
+   ========================================================= */
+
+.hero-button {
+    width: fit-content;
+
+    padding: 13px 27px;
+
+    background: var(--home-dark);
+    color: var(--home-white);
+
+    border-radius: 30px;
+
+    font-size: 10px;
+    font-weight: 700;
+
+    letter-spacing: 1.3px;
+
+    transition:
+        background 0.25s ease,
+        transform 0.25s ease;
+}
+
+
+.hero-button:hover {
+    background: var(--home-white);
+    color: var(--home-black);
+
+    transform: translateY(-2px);
+}
+
+
+/* =========================================================
+   SECTION COMMON
+   ========================================================= */
+
+.section-heading {
+    margin-bottom: 32px;
+}
+
+
+.section-label {
+    margin-bottom: 9px;
+
+    color: var(--home-gray);
+
+    font-size: 10px;
+    font-weight: 600;
+
+    letter-spacing: 2.5px;
+
+    text-transform: uppercase;
+}
+
+
+.section-heading h2 {
+    color: var(--home-black);
+
+    font-family: Georgia, "Times New Roman", serif;
+
+    font-size: 34px;
+    font-weight: 400;
+
+    letter-spacing: -0.5px;
+}
+
+
+/* =========================================================
+   CATEGORIES
+   ========================================================= */
+
+.categories {
+    padding-top: 78px;
+    padding-bottom: 55px;
+}
+
+
+.category-grid {
+    display: grid;
+
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+
+    gap: 22px;
+
+    width: 100%;
+}
+
+
+/* Category card */
+
+.category-card {
+    display: block;
+
+    color: var(--home-black);
+
+    text-decoration: none;
+
+    transition:
+        transform 0.3s ease;
+}
+
+
+.category-card:hover {
+    transform: translateY(-6px);
+}
+
+
+/* Category image */
+
+.category-image {
+    width: 100%;
+    height: 330px;
+
+    position: relative;
+    overflow: hidden;
+
+    margin-bottom: 15px;
+
+    background: var(--home-light-gray);
+
+    border-radius: 10px;
+}
+
+
+.category-image img {
+    width: 100% !important;
+    height: 100% !important;
+
+    display: block;
+
+    object-fit: cover !important;
+    object-position: center;
+
+    transition: transform 0.55s ease;
+}
+
+
+.category-card:hover .category-image img {
+    transform: scale(1.06);
+}
+
+
+/* Category text */
+
+.category-card h3 {
+    margin-bottom: 6px;
+
+    font-family: Georgia, "Times New Roman", serif;
+
+    font-size: 19px;
+    font-weight: 400;
+}
+
+
+.category-card p {
+    color: var(--home-gray);
+
+    font-size: 11px;
+    line-height: 1.5;
+}
+
+
+/* =========================================================
+   FEATURED PRODUCTS
+   ========================================================= */
+
+.products-section {
+    padding-top: 75px;
+    padding-bottom: 80px;
+}
+
+
+.product-grid {
+    display: grid;
+
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+
+    gap: 22px;
+}
+
+
+.product-card {
+    display: block;
+
+    transition:
+        transform 0.3s ease;
+}
+
+
+.product-card:hover {
+    transform: translateY(-6px);
+}
+
+
+/* Product image */
+
+.product-image {
+    width: 100%;
+    height: 330px;
+
+    overflow: hidden;
+
+    margin-bottom: 15px;
+
+    background: var(--home-light-gray);
+
+    border-radius: 10px;
+}
+
+
+.product-image img {
+    width: 100%;
+    height: 100%;
+
+    display: block;
+
+    object-fit: cover;
+    object-position: center;
+
+    transition: transform 0.55s ease;
+}
+
+
+.product-card:hover .product-image img {
+    transform: scale(1.05);
+}
+
+
+/* Product information */
+
+.product-info {
+    padding: 0 3px;
+}
+
+
+.product-brand {
+    margin-bottom: 6px;
+
+    color: var(--home-gray);
+
+    font-size: 9px;
+    font-weight: 600;
+
+    letter-spacing: 1.5px;
+
+    text-transform: uppercase;
+}
+
+
+.product-info h3 {
+    margin-bottom: 7px;
+
+    color: var(--home-black);
+
+    font-family: Georgia, "Times New Roman", serif;
+
+    font-size: 17px;
+    font-weight: 400;
+
+    line-height: 1.3;
+}
+
+
+.product-price {
+    color: var(--home-black);
+
+    font-size: 14px;
+    font-weight: 700;
+}
+
+
+/* =========================================================
+   BRAND MESSAGE
+   ========================================================= */
+
+.brand-message {
+    min-height: 390px;
+
+    margin-top: 20px;
+    margin-bottom: 80px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    text-align: center;
+
+    background:
+        linear-gradient(
+            135deg,
+            #191919,
+            #292929
+        );
+
+    color: var(--home-white);
+
+    border-radius: 16px;
+
+    overflow: hidden;
+
+    position: relative;
+}
+
+
+/* Decorative background */
+
+.brand-message::before {
+    content: "BHAVIKA";
+
+    position: absolute;
+
+    left: 50%;
+    top: 50%;
+
+    transform: translate(-50%, -50%);
+
+    font-family: Georgia, "Times New Roman", serif;
+
+    font-size: 150px;
+    font-weight: 700;
+
+    letter-spacing: 8px;
+
+    color: rgba(255, 255, 255, 0.035);
+
+    white-space: nowrap;
+
+    pointer-events: none;
+}
+
+
+.brand-message-content {
+    position: relative;
+    z-index: 2;
+
+    max-width: 650px;
+
+    padding: 70px 30px;
+}
+
+
+.brand-message .section-label {
+    color: #cfcfcf;
+
+    margin-bottom: 17px;
+}
+
+
+.brand-message h2 {
+    margin-bottom: 22px;
+
+    color: var(--home-white);
+
+    font-family: Georgia, "Times New Roman", serif;
+
+    font-size: 52px;
+    font-weight: 400;
+
+    line-height: 1.05;
+}
+
+
+.brand-message p:last-child {
+    max-width: 500px;
+
+    margin: 0 auto;
+
+    color: #d4d4d4;
+
+    font-size: 14px;
+    line-height: 1.7;
+}
+
+
+/* =========================================================
+   TABLET
+   ========================================================= */
+
+@media (max-width: 1000px) {
+
+    .hero {
+        height: 500px;
+    }
+
+
+    .hero-content {
+        width: 58%;
+        padding: 45px;
+    }
+
+
+    .hero h1 {
+        font-size: 44px;
+    }
+
+
+    .category-grid,
+    .product-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+
+    .category-image {
+        height: 320px;
+    }
+
+
+    .product-image {
+        height: 330px;
+    }
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 650px) {
+
+    .hero {
+        width: 94%;
+        height: 620px;
+
+        margin-top: 18px;
+
+        border-radius: 13px;
+    }
+
+
+    .hero-image {
+        height: 100%;
+    }
+
+
+    .hero-image::after {
+        background:
+            linear-gradient(
+                180deg,
+                rgba(180, 0, 0, 1) 0%,
+                rgba(180, 0, 0, 0.92) 28%,
+                rgba(180, 0, 0, 0.35) 52%,
+                rgba(180, 0, 0, 0) 75%
+            );
+    }
+
+
+    .hero-content {
+        width: 100%;
+
+        padding: 45px 28px;
+
+        justify-content: flex-start;
+    }
+
+
+    .hero-subtitle {
+        font-size: 9px;
+        letter-spacing: 2px;
+    }
+
+
+    .hero h1 {
+        font-size: 39px;
+
+        line-height: 1;
+    }
+
+
+    .hero-text {
+        max-width: 300px;
+
+        font-size: 13px;
+    }
+
+
+    .categories {
+        width: 94%;
+
+        padding-top: 55px;
+        padding-bottom: 35px;
+    }
+
+
+    .section-heading {
+        margin-bottom: 25px;
+    }
+
+
+    .section-heading h2 {
+        font-size: 29px;
+    }
+
+
+    .category-grid,
+    .product-grid {
+        grid-template-columns: 1fr;
+
+        gap: 28px;
+    }
+
+
+    .category-image {
+        height: 390px;
+    }
+
+
+    .product-image {
+        height: 430px;
+    }
+
+
+    .products-section {
+        width: 94%;
+
+        padding-top: 50px;
+        padding-bottom: 55px;
+    }
+
+
+    .brand-message {
+        width: 94%;
+
+        min-height: 340px;
+
+        margin-bottom: 45px;
+    }
+
+
+    .brand-message::before {
+        font-size: 80px;
+    }
+
+
+    .brand-message h2 {
+        font-size: 38px;
+    }
+
+
+    .brand-message-content {
+        padding: 55px 25px;
+    }
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+   ========================================================= */
+
+@media (max-width: 400px) {
+
+    .hero {
+        height: 590px;
+    }
+
+
+    .hero h1 {
+        font-size: 35px;
+    }
+
+
+    .hero-content {
+        padding: 40px 23px;
+    }
+
+
+    .category-image {
+        height: 350px;
+    }
+
+
+    .product-image {
+        height: 390px;
+    }
+
+
+    .brand-message h2 {
+        font-size: 34px;
+    }
+}

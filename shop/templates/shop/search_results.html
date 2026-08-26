@@ -1,0 +1,128 @@
+{% extends 'shop/base.html' %}
+{% load static %}
+
+{% block extra_css %}
+
+<link rel="stylesheet" href="{% static 'shop/css/home.css' %}">
+
+{% endblock %}
+
+
+{% block content %}
+
+<section class="search-results-page">
+
+    <div class="search-results-header">
+
+        <p class="section-label">
+            SEARCH
+        </p>
+
+        {% if query %}
+
+            <h1>
+                Search results for "{{ query }}"
+            </h1>
+
+        {% else %}
+
+            <h1>
+                Search Products
+            </h1>
+
+        {% endif %}
+
+    </div>
+
+
+    {% if query %}
+
+        {% if products %}
+
+            <div class="product-grid">
+
+                {% for product in products %}
+
+                    <article class="product-card">
+
+                        <a
+                            href="{% url 'product_detail' product.product_id %}"
+                        >
+
+                            <div class="product-image">
+
+                                <img
+                                    src="{% static product.image_url %}"
+                                    alt="{{ product.product_name }}"
+                                >
+
+                            </div>
+
+
+                            <div class="product-info">
+
+                                <p class="product-brand">
+                                    {{ product.brand }}
+                                </p>
+
+                                <h3>
+                                    {{ product.product_name }}
+                                </h3>
+
+                                <p class="product-price">
+                                    ₹{{ product.price }}
+                                </p>
+
+                            </div>
+
+                        </a>
+
+                    </article>
+
+                {% endfor %}
+
+            </div>
+
+        {% else %}
+
+            <div class="no-search-results">
+
+                <h2>
+                    No products found
+                </h2>
+
+                <p>
+                    We couldn't find any products matching
+                    "{{ query }}".
+                </p>
+
+                <a
+                    href="{% url 'home' %}"
+                    class="search-back-button"
+                >
+                    CONTINUE SHOPPING
+                </a>
+
+            </div>
+
+        {% endif %}
+
+    {% else %}
+
+        <div class="no-search-results">
+
+            <h2>
+                What are you looking for?
+            </h2>
+
+            <p>
+                Search for shirts, dresses, accessories and more.
+            </p>
+
+        </div>
+
+    {% endif %}
+
+</section>
+
+{% endblock %}

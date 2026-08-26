@@ -1,0 +1,289 @@
+{% extends 'shop/base.html' %}
+{% load static %}
+
+{% block extra_css %}
+
+<link
+    rel="stylesheet"
+    href="{% static 'shop/css/home.css' %}?v=4"
+>
+
+{% endblock %}
+
+
+{% block content %}
+
+
+<!-- =========================================
+     HERO SECTION
+     ========================================= -->
+
+<section class="hero">
+
+    <div class="hero-content">
+
+        <p class="hero-subtitle">
+            NEW SEASON
+        </p>
+
+        <h1>
+            CURATED<br>
+            COLOUR<br>
+            COLLECTION
+        </h1>
+
+        <p class="hero-text">
+            Discover effortless fashion designed
+            for your everyday style.
+        </p>
+
+        <a
+            href="#featured-products"
+            class="hero-button"
+        >
+            SHOP COLLECTION
+        </a>
+
+    </div>
+
+
+    <div class="hero-image">
+
+        <img
+            src="{% static 'shop/images/hero.jpg' %}"
+            alt="Bhavika fashion collection"
+        >
+
+    </div>
+
+</section>
+
+
+<!-- =========================================
+     CATEGORIES
+     ========================================= -->
+
+<section class="categories section-container">
+
+    <div class="section-heading">
+
+        <p class="section-label">
+            EXPLORE
+        </p>
+
+        <h2>
+            Shop by Category
+        </h2>
+
+    </div>
+
+
+    <div class="category-grid">
+
+        {% for category in categories %}
+
+        <a
+            href="{% url 'category_products' category.category_id %}"
+            class="category-card"
+        >
+
+            <div class="category-image">
+
+                {% if category.category_name == "Men" %}
+
+                    <img
+                        src="{% static 'shop/images/products/men_products/men_shirts_Tshirts/men_casual_cotton_shirt.jpg' %}"
+                        alt="Men"
+                    >
+
+                {% elif category.category_name == "Women" %}
+
+                    <img
+                        src="{% static 'shop/images/products/women_products/women_Tops/casual_top.jpg' %}"
+                        alt="Women"
+                    >
+
+                {% elif category.category_name == "Kids" %}
+
+                    <img
+                        src="{% static 'shop/images/products/kids_products/boys_kids_products/kids_cotton_tshirt.jpg' %}"
+                        alt="Kids"
+                    >
+
+                {% elif category.category_name == "Dresses" %}
+
+                    <img
+                        src="{% static 'shop/images/products/dresses/womens_dresses/womens_anarkali.jpg' %}"
+                        alt="Dresses"
+                    >
+
+                {% elif category.category_name == "T-Shirts" %}
+
+                    <img
+                        src="{% static 'shop/images/products/mens_womens_Tshirts/mens_related_Tshirts/mens_colorblock_tshirt.jpg' %}"
+                        alt="T-Shirts"
+                    >
+
+                {% elif category.category_name == "Shirts" %}
+
+                    <img
+                        src="{% static 'shop/images/products/men_products/men_shirts_Tshirts/modern_shirt.jpg' %}"
+                        alt="Shirts"
+                    >
+
+                {% elif category.category_name == "Jeans" %}
+
+                    <img
+                        src="{% static 'shop/images/products/Jeans/mens_related/mens_dark_wash_jeans.jpg' %}"
+                        alt="Jeans"
+                    >
+
+                {% elif category.category_name == "Footwear" %}
+
+                    <img
+                        src="{% static 'shop/images/products/footwear/womens/womens_casual_sneakers/womens_canvas_sneakers.jpg' %}"
+                        alt="Footwear"
+                    >
+
+                {% elif category.category_name == "Accessories" %}
+
+                    <img
+                        src="{% static 'shop/images/products/accessories/classic_handbags/classic_handbag_beige.jpg' %}"
+                        alt="Accessories"
+                    >
+
+                {% endif %}
+
+            </div>
+
+
+            <h3>
+                {{ category.category_name }}
+            </h3>
+
+            <p>
+                {{ category.description }}
+            </p>
+
+        </a>
+
+        {% empty %}
+
+        <p>
+            No categories available.
+        </p>
+
+        {% endfor %}
+
+    </div>
+
+</section>
+
+
+<!-- =========================================
+     FEATURED PRODUCTS
+     ========================================= -->
+
+<section
+    id="featured-products"
+    class="products-section"
+>
+
+    <div class="section-heading">
+
+        <p class="section-label">
+            CURATED FOR YOU
+        </p>
+
+        <h2>
+            Featured Products
+        </h2>
+
+    </div>
+
+
+    <div class="product-grid">
+
+        {% for product in products %}
+
+        <article class="product-card">
+
+            <a
+                href="{% url 'product_detail' product.product_id %}"
+            >
+
+                <div class="product-image">
+
+                    {% if product.image_url %}
+
+                    <img
+                        src="{% static product.image_url %}"
+                        alt="{{ product.product_name }}"
+                    >
+
+                    {% endif %}
+
+                </div>
+
+
+                <div class="product-info">
+
+                    <p class="product-brand">
+                        {{ product.brand }}
+                    </p>
+
+                    <h3>
+                        {{ product.product_name }}
+                    </h3>
+
+                    <p class="product-price">
+                        ₹{{ product.price }}
+                    </p>
+
+                </div>
+
+            </a>
+
+        </article>
+
+        {% empty %}
+
+        <p>
+            No products available.
+        </p>
+
+        {% endfor %}
+
+    </div>
+
+</section>
+
+
+<!-- =========================================
+     BRAND MESSAGE
+     ========================================= -->
+
+<section class="brand-message">
+
+    <div class="brand-message-content">
+
+        <p class="section-label">
+            BHAVIKA
+        </p>
+
+        <h2>
+            Love the way<br>
+            you wear it.
+        </h2>
+
+        <p>
+            Fashion designed to feel effortless,
+            confident and completely yours.
+        </p>
+
+    </div>
+
+</section>
+
+
+{% endblock %}

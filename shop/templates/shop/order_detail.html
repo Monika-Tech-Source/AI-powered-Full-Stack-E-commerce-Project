@@ -1,0 +1,463 @@
+{% extends 'shop/base.html' %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'shop/css/order_detail.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<section class="order-detail-page">
+
+    <!-- =========================================
+         PAGE HEADER
+         ========================================= -->
+
+    <div class="order-detail-header">
+
+        <p class="order-detail-label">
+            ORDER DETAILS
+        </p>
+
+        <h1>
+            Order #{{ order.order_id }}
+        </h1>
+
+        <p class="order-detail-description">
+            Thank you for shopping with BHAVIKA.
+        </p>
+
+    </div>
+
+
+    <!-- =========================================
+         ORDER INFORMATION
+         ========================================= -->
+
+    <div class="order-info-card">
+
+        <div class="order-info">
+
+            <span>ORDER DATE</span>
+
+            <strong>
+                {{ order.order_date|date:"d M Y" }}
+            </strong>
+
+        </div>
+
+
+        <div class="order-info">
+
+            <span>PAYMENT METHOD</span>
+
+            <strong>
+                {{ order.payment_method }}
+            </strong>
+
+        </div>
+
+
+        <div class="order-info">
+
+            <span>ORDER STATUS</span>
+
+            <strong class="order-status">
+                {{ order.order_status }}
+            </strong>
+
+        </div>
+
+    </div>
+
+<!-- =========================================
+     ORDER TRACKING
+     ========================================= -->
+
+<div class="order-tracking">
+
+    <h2>Order Tracking</h2>
+
+    {% if order.order_status == 'CANCELLED' %}
+
+        <!-- CANCELLED ORDER -->
+
+        <div class="cancelled-tracking">
+
+            <div class="cancelled-icon">
+                ×
+            </div>
+
+            <div class="cancelled-content">
+
+                <strong>
+                    ORDER CANCELLED
+                </strong>
+
+                <p>
+                    This order has been cancelled successfully.
+                </p>
+
+            </div>
+
+        </div>
+
+    {% else %}
+
+        <!-- NORMAL ORDER TRACKING -->
+
+        <div class="tracking-wrapper
+            {% if order.order_status == 'PLACED' %}
+                status-placed
+            {% elif order.order_status == 'CONFIRMED' %}
+                status-confirmed
+            {% elif order.order_status == 'SHIPPED' %}
+                status-shipped
+            {% elif order.order_status == 'OUT FOR DELIVERY' %}
+                status-out-for-delivery
+            {% elif order.order_status == 'DELIVERED' %}
+                status-delivered
+            {% endif %}
+        ">
+
+            <!-- PROGRESS BAR -->
+
+            <div class="tracking-progress">
+
+                <div class="tracking-progress-fill"></div>
+
+            </div>
+
+
+            <!-- TRACKING STEPS -->
+
+            <div class="tracking-steps">
+
+                <!-- PLACED -->
+
+                <div class="tracking-step">
+
+                    <div class="tracking-dot">
+
+                        {% if order.order_status == 'PLACED' or order.order_status == 'CONFIRMED' or order.order_status == 'SHIPPED' or order.order_status == 'OUT FOR DELIVERY' or order.order_status == 'DELIVERED' %}
+                            ✓
+                        {% else %}
+                            1
+                        {% endif %}
+
+                    </div>
+
+                    <span>PLACED</span>
+
+                </div>
+
+
+                <!-- CONFIRMED -->
+
+                <div class="tracking-step">
+
+                    <div class="tracking-dot">
+
+                        {% if order.order_status == 'CONFIRMED' or order.order_status == 'SHIPPED' or order.order_status == 'OUT FOR DELIVERY' or order.order_status == 'DELIVERED' %}
+                            ✓
+                        {% else %}
+                            2
+                        {% endif %}
+
+                    </div>
+
+                    <span>CONFIRMED</span>
+
+                </div>
+
+
+                <!-- SHIPPED -->
+
+                <div class="tracking-step">
+
+                    <div class="tracking-dot">
+
+                        {% if order.order_status == 'SHIPPED' or order.order_status == 'OUT FOR DELIVERY' or order.order_status == 'DELIVERED' %}
+                            ✓
+                        {% else %}
+                            3
+                        {% endif %}
+
+                    </div>
+
+                    <span>SHIPPED</span>
+
+                </div>
+
+
+                <!-- OUT FOR DELIVERY -->
+
+                <div class="tracking-step">
+
+                    <div class="tracking-dot">
+
+                        {% if order.order_status == 'OUT FOR DELIVERY' or order.order_status == 'DELIVERED' %}
+                            ✓
+                        {% else %}
+                            4
+                        {% endif %}
+
+                    </div>
+
+                    <span>OUT FOR DELIVERY</span>
+
+                </div>
+
+
+                <!-- DELIVERED -->
+
+                <div class="tracking-step">
+
+                    <div class="tracking-dot">
+
+                        {% if order.order_status == 'DELIVERED' %}
+                            ✓
+                        {% else %}
+                            5
+                        {% endif %}
+
+                    </div>
+
+                    <span>DELIVERED</span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    {% endif %}
+
+</div>
+
+    <!-- =========================================
+         MAIN LAYOUT
+         ========================================= -->
+
+    <div class="order-detail-layout">
+
+
+        <!-- =====================================
+             LEFT SIDE
+             ===================================== -->
+
+        <div class="order-products">
+
+            <h2>
+                Your Items
+            </h2>
+
+
+            {% for item in order_items %}
+
+            <div class="order-product">
+
+                <!-- PRODUCT IMAGE -->
+
+                <div class="order-product-image">
+
+                    <img
+                        src="{% static item.variant.product.image_url %}"
+                        alt="{{ item.variant.product.product_name }}"
+                    >
+
+                </div>
+
+
+                <!-- PRODUCT INFORMATION -->
+
+                <div class="order-product-info">
+
+                    <p class="order-product-brand">
+                        {{ item.variant.product.brand }}
+                    </p>
+
+                    <h3>
+                        {{ item.variant.product.product_name }}
+                    </h3>
+
+                    <p class="order-product-size">
+                        Size: {{ item.variant.size }}
+                    </p>
+
+                    <p class="order-product-quantity">
+                        Quantity: {{ item.quantity }}
+                    </p>
+
+                </div>
+
+
+                <!-- PRICE -->
+
+                <div class="order-product-price">
+
+                    <span>
+                        ₹{{ item.price|floatformat:2 }}
+                    </span>
+
+                    <strong>
+                        ₹{{ item.subtotal|floatformat:2 }}
+                    </strong>
+
+                </div>
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+
+        <!-- =====================================
+             RIGHT SIDE
+             ===================================== -->
+
+        <aside class="order-summary">
+
+            <h2>
+                Order Summary
+            </h2>
+
+
+            <div class="summary-line">
+
+                <span>
+                    Subtotal
+                </span>
+
+                <strong>
+                    ₹{{ order.total_amount|floatformat:2 }}
+                </strong>
+
+            </div>
+
+
+            <div class="summary-line">
+
+                <span>
+                    Shipping
+                </span>
+
+                <span>
+                    FREE
+                </span>
+
+            </div>
+
+
+            <div class="summary-total">
+
+                <span>
+                    Total
+                </span>
+
+                <strong>
+                    ₹{{ order.total_amount|floatformat:2 }}
+                </strong>
+
+            </div>
+
+        </aside>
+
+    </div>
+
+
+    <!-- =========================================
+         DELIVERY ADDRESS
+         ========================================= -->
+
+    <div class="delivery-card">
+
+        <h2>
+            Delivery Address
+        </h2>
+
+
+        <div class="delivery-content">
+
+            <strong>
+                {{ order.delivery_name }}
+            </strong>
+
+            <p>
+                {{ order.delivery_phone }}
+            </p>
+
+            <p>
+                {{ order.delivery_address_line1 }}
+            </p>
+
+
+            {% if order.delivery_address_line2 %}
+
+            <p>
+                {{ order.delivery_address_line2 }}
+            </p>
+
+            {% endif %}
+
+
+            <p>
+                {{ order.delivery_city }},
+                {{ order.delivery_state }}
+                - {{ order.delivery_pincode }}
+            </p>
+
+            <p>
+                {{ order.delivery_country }}
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================================
+     ORDER ACTIONS
+     ========================================= -->
+
+<div class="order-actions">
+
+    {% if order.order_status != "CANCELLED" and order.order_status != "DELIVERED" %}
+
+        <form
+            method="POST"
+            onsubmit="return confirm('Are you sure you want to cancel this order?');"
+        >
+
+            {% csrf_token %}
+
+            <input
+                type="hidden"
+                name="action"
+                value="cancel"
+            >
+
+            <button
+                type="submit"
+                class="cancel-order-button"
+            >
+                CANCEL ORDER
+            </button>
+
+        </form>
+
+    {% endif %}
+
+
+    <div class="order-back">
+
+        <a href="/my-orders/">
+            ← BACK TO MY ORDERS
+        </a>
+
+    </div>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,351 @@
+{% extends 'shop/base.html' %}
+{% load static %}
+
+{% block extra_css %}
+
+<link
+    rel="stylesheet"
+    href="{% static 'shop/css/profile.css' %}"
+>
+
+{% endblock %}
+
+
+{% block content %}
+
+<section class="profile-page">
+
+    <!-- PROFILE HEADER -->
+
+    <div class="profile-header">
+
+        <p class="profile-label">
+            MY ACCOUNT
+        </p>
+
+        <h1>
+            My Profile
+        </h1>
+
+        <p class="profile-description">
+            Manage your personal information and delivery details.
+        </p>
+
+    </div>
+
+
+    <!-- MESSAGES -->
+
+    {% if messages %}
+
+        <div class="profile-messages">
+
+            {% for message in messages %}
+
+                <div class="profile-message">
+
+                    {{ message }}
+
+                </div>
+
+            {% endfor %}
+
+        </div>
+
+    {% endif %}
+
+
+    <!-- PROFILE CONTENT -->
+
+    <div class="profile-container">
+
+
+        <!-- PERSONAL INFORMATION -->
+
+        <div class="profile-section">
+
+            <div class="section-heading">
+
+                <span>
+                    01
+                </span>
+
+                <h2>
+                    Personal Information
+                </h2>
+
+            </div>
+
+
+            <form
+                method="POST"
+                class="profile-form"
+            >
+
+                {% csrf_token %}
+
+
+                <!-- FULL NAME -->
+
+                <div class="form-group">
+
+                    <label for="full_name">
+                        FULL NAME
+                    </label>
+
+                    <input
+                        type="text"
+                        id="full_name"
+                        name="full_name"
+                        value="{{ user.full_name }}"
+                        placeholder="Enter your full name"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- EMAIL -->
+
+                <div class="form-group">
+
+                    <label for="email">
+                        EMAIL ADDRESS
+                    </label>
+
+                    <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        value="{{ user.email }}"
+                        placeholder="Enter your email"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- PHONE -->
+
+                <div class="form-group">
+
+                    <label for="phone">
+                        PHONE NUMBER
+                    </label>
+
+                    <input
+                        type="text"
+                        id="phone"
+                        name="phone"
+                        value="{{ user.phone }}"
+                        placeholder="10-digit mobile number"
+                        maxlength="10"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- ADDRESS -->
+
+                <div class="section-heading address-heading">
+
+                    <span>
+                        02
+                    </span>
+
+                    <h2>
+                        Delivery Address
+                    </h2>
+
+                </div>
+
+
+                <!-- ADDRESS LINE 1 -->
+
+                <div class="form-group">
+
+                    <label for="address_line1">
+                        ADDRESS
+                    </label>
+
+                    <input
+                        type="text"
+                        id="address_line1"
+                        name="address_line1"
+                        value="{{ user.address_line1 }}"
+                        placeholder="House number, street, area"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- ADDRESS LINE 2 -->
+
+                <div class="form-group">
+
+                    <label for="address_line2">
+                        ADDRESS LINE 2
+                        <span>(OPTIONAL)</span>
+                    </label>
+
+                    <input
+                        type="text"
+                        id="address_line2"
+                        name="address_line2"
+                        value="{{ user.address_line2|default:'' }}"
+                        placeholder="Apartment, landmark, etc."
+                    >
+
+                </div>
+
+
+                <!-- CITY + STATE -->
+
+                <div class="form-row">
+
+                    <div class="form-group">
+
+                        <label for="city">
+                            CITY
+                        </label>
+
+                        <input
+                            type="text"
+                            id="city"
+                            name="city"
+                            value="{{ user.city }}"
+                            placeholder="Enter city"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="state">
+                            STATE
+                        </label>
+
+                        <input
+                            type="text"
+                            id="state"
+                            name="state"
+                            value="{{ user.state }}"
+                            placeholder="Enter state"
+                            required
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <!-- PINCODE -->
+
+                <div class="form-group">
+
+                    <label for="pincode">
+                        PINCODE
+                    </label>
+
+                    <input
+                        type="text"
+                        id="pincode"
+                        name="pincode"
+                        value="{{ user.pincode }}"
+                        placeholder="6-digit pincode"
+                        maxlength="6"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- SAVE BUTTON -->
+
+                <div class="profile-actions">
+
+                    <button
+                        type="submit"
+                        class="save-profile-button"
+                    >
+                        SAVE CHANGES
+                    </button>
+
+                    <a
+                        href="{% url 'home' %}"
+                        class="cancel-profile-button"
+                    >
+                        CANCEL
+                    </a>
+
+                </div>
+
+
+            </form>
+
+        </div>
+
+
+        <!-- ACCOUNT SUMMARY -->
+
+        <aside class="profile-summary">
+
+            <div class="profile-avatar">
+                ♙
+            </div>
+
+            <h2>
+                {{ user.full_name }}
+            </h2>
+
+            <p>
+                {{ user.email }}
+            </p>
+
+
+            <div class="summary-divider"></div>
+
+
+            <div class="summary-item">
+
+                <span>
+                    MEMBER SINCE
+                </span>
+
+                <strong>
+                    {{ user.created_at|date:"d M Y" }}
+                </strong>
+
+            </div>
+
+
+            <div class="summary-divider"></div>
+
+
+            <a
+                href="{% url 'my_orders' %}"
+                class="orders-button"
+            >
+                MY ORDERS
+            </a>
+
+
+            <a
+                href="{% url 'logout' %}"
+                class="profile-logout"
+            >
+                LOGOUT
+            </a>
+
+        </aside>
+
+
+    </div>
+
+</section>
+
+{% endblock %}

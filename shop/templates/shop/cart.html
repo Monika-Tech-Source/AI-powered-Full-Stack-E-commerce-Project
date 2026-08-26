@@ -1,0 +1,357 @@
+{% extends 'shop/base.html' %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'shop/css/cart.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<section class="cart-page">
+
+    <!-- =========================================
+         CART HEADER
+    ========================================= -->
+
+    <div class="cart-header">
+
+        <p class="cart-label">
+            SHOPPING BAG
+        </p>
+
+        <h1>
+            Your Cart
+        </h1>
+
+        <p class="cart-description">
+            Review your selected products before checkout.
+        </p>
+
+    </div>
+
+
+    {% if cart_items %}
+
+    <div class="cart-container">
+
+        <!-- =========================================
+             CART ITEMS
+        ========================================= -->
+
+        <div class="cart-items">
+
+            {% for item in cart_items %}
+
+            <article class="cart-item">
+
+                <!-- PRODUCT IMAGE -->
+
+                <div class="cart-item-image">
+
+                    <img
+                        src="{% static item.variant.product.image_url %}"
+                        alt="{{ item.variant.product.product_name }}"
+                    >
+
+                </div>
+
+
+                <!-- PRODUCT INFORMATION -->
+
+                <div class="cart-item-info">
+
+                    <p class="cart-brand">
+                        {{ item.variant.product.brand }}
+                    </p>
+
+                    <h2>
+                        {{ item.variant.product.product_name }}
+                    </h2>
+
+                    <p class="cart-size">
+                        Size: {{ item.variant.size }}
+                    </p>
+
+                    <p class="cart-price">
+                        ₹{{ item.variant.product.price|floatformat:2 }}
+                    </p>
+
+
+                    <!-- STOCK STATUS -->
+
+                    <div class="cart-stock-status">
+
+                        {% if item.stock_status == "OUT_OF_STOCK" %}
+
+                            <span class="stock-out">
+                                OUT OF STOCK
+                            </span>
+
+                        {% elif item.stock_status == "INSUFFICIENT_STOCK" %}
+
+                            <span class="stock-insufficient">
+                                INSUFFICIENT STOCK
+                            </span>
+
+                        {% elif item.stock_status == "LOW_STOCK" %}
+
+                            <span class="stock-low">
+                                ONLY {{ item.variant.stock_quantity }} LEFT
+                            </span>
+
+                        {% else %}
+
+                            <span class="stock-available">
+                                IN STOCK
+                            </span>
+
+                        {% endif %}
+
+                    </div>
+
+
+                    <!-- REMOVE ITEM -->
+
+                    <form method="POST">
+
+                        {% csrf_token %}
+
+                        <input
+                            type="hidden"
+                            name="cart_item_id"
+                            value="{{ item.cart_item_id }}"
+                        >
+
+                        <button
+                            type="submit"
+                            name="action"
+                            value="remove"
+                            class="remove-button"
+                        >
+                            REMOVE
+                        </button>
+
+                    </form>
+
+                </div>
+
+
+                <!-- =========================================
+                     QUANTITY
+                ========================================= -->
+
+                <div class="cart-quantity">
+
+                    <p>
+                        QUANTITY
+                    </p>
+
+                    <div class="quantity-controls">
+
+                        <!-- DECREASE -->
+
+                        <form method="POST">
+
+                            {% csrf_token %}
+
+                            <input
+                                type="hidden"
+                                name="cart_item_id"
+                                value="{{ item.cart_item_id }}"
+                            >
+
+                            <input
+                                type="hidden"
+                                name="action"
+                                value="decrease"
+                            >
+
+                            <button type="submit">
+                                −
+                            </button>
+
+                        </form>
+
+
+                        <!-- CURRENT QUANTITY -->
+
+                        <span>
+                            {{ item.quantity }}
+                        </span>
+
+
+                        <!-- INCREASE -->
+
+                        <form method="POST">
+
+                            {% csrf_token %}
+
+                            <input
+                                type="hidden"
+                                name="cart_item_id"
+                                value="{{ item.cart_item_id }}"
+                            >
+
+                            <input
+                                type="hidden"
+                                name="action"
+                                value="increase"
+                            >
+
+                            <button
+                                type="submit"
+                                {% if item.quantity >= item.variant.stock_quantity %}
+                                    disabled
+                                {% endif %}
+                            >
+                                +
+                            </button>
+
+                        </form>
+
+                    </div>
+
+                </div>
+
+
+                <!-- =========================================
+                     SUBTOTAL
+                ========================================= -->
+
+                <div class="cart-subtotal">
+
+                    <p>
+                        SUBTOTAL
+                    </p>
+
+                    <strong>
+                        ₹{{ item.subtotal|floatformat:2 }}
+                    </strong>
+
+                </div>
+
+            </article>
+
+            {% endfor %}
+
+        </div>
+
+
+        <!-- =========================================
+             CART SUMMARY
+        ========================================= -->
+
+        <aside class="cart-summary">
+
+            <h2>
+                Cart Summary
+            </h2>
+
+
+            <div class="summary-line">
+
+                <span>
+                    Subtotal
+                </span>
+
+                <strong>
+                    ₹{{ total|floatformat:2 }}
+                </strong>
+
+            </div>
+
+
+            <div class="summary-line">
+
+                <span>
+                    Shipping
+                </span>
+
+                <span>
+                    FREE
+                </span>
+
+            </div>
+
+
+            <div class="summary-total">
+
+                <span>
+                    Total
+                </span>
+
+                <strong>
+                    ₹{{ total|floatformat:2 }}
+                </strong>
+
+            </div>
+
+
+            <!-- =========================================
+                 CHECKOUT BUTTON
+            ========================================= -->
+
+            {% if can_checkout %}
+
+                <a
+                    href="{% url 'checkout' %}"
+                    class="checkout-button"
+                >
+                    PROCEED TO CHECKOUT
+                </a>
+
+            {% else %}
+
+                <button
+                    type="button"
+                    class="checkout-button checkout-disabled"
+                    disabled
+                >
+                    CHECKOUT UNAVAILABLE
+                </button>
+
+                <p class="checkout-warning">
+                    Please resolve the stock issue before checkout.
+                </p>
+
+            {% endif %}
+
+        </aside>
+
+    </div>
+
+
+    {% else %}
+
+    <!-- =========================================
+         EMPTY CART
+    ========================================= -->
+
+    <div class="empty-cart">
+
+        <div class="empty-cart-icon">
+            🛒
+        </div>
+
+        <h2>
+            Your cart is empty
+        </h2>
+
+        <p>
+            Add some products to continue shopping.
+        </p>
+
+        <a
+            href="{% url 'home' %}"
+            class="continue-shopping-button"
+        >
+            CONTINUE SHOPPING
+        </a>
+
+    </div>
+
+    {% endif %}
+
+</section>
+
+{% endblock %}

@@ -1,0 +1,747 @@
+/* =========================================
+   ORDER DETAIL PAGE
+   ========================================= */
+
+.order-detail-page {
+    width: 90%;
+    max-width: 1150px;
+    margin: 75px auto 120px;
+}
+
+
+/* =========================================
+   HEADER
+   ========================================= */
+
+.order-detail-header {
+    margin-bottom: 45px;
+}
+
+.order-detail-label {
+    font-size: 10px;
+    letter-spacing: 3px;
+    color: #888;
+    margin-bottom: 14px;
+}
+
+.order-detail-header h1 {
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 46px;
+    font-weight: 400;
+    margin-bottom: 14px;
+}
+
+.order-detail-description {
+    color: #777;
+    font-size: 14px;
+}
+
+
+/* =========================================
+   ORDER INFO
+   ========================================= */
+
+.order-info-card {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    border: 1px solid #ddd;
+    margin-bottom: 45px;
+}
+
+.order-info {
+    padding: 25px 30px;
+    border-right: 1px solid #eee;
+}
+
+.order-info:last-child {
+    border-right: none;
+}
+
+.order-info span {
+    display: block;
+    font-size: 9px;
+    letter-spacing: 2px;
+    color: #888;
+    margin-bottom: 10px;
+}
+
+.order-info strong {
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.order-status {
+    text-transform: uppercase;
+}
+
+
+/* =========================================
+   ORDER TRACKING
+   ========================================= */
+
+.order-tracking {
+    border: 1px solid #ddd;
+    padding: 30px 35px 35px;
+    margin-bottom: 45px;
+    background: #fff;
+}
+
+.order-tracking h2 {
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 24px;
+    font-weight: 400;
+    margin: 0 0 35px;
+}
+
+
+/* =========================================
+   TRACKING WRAPPER
+   ========================================= */
+
+.tracking-wrapper {
+    position: relative;
+    padding: 0 5%;
+}
+
+
+/* =========================================
+   PROGRESS BAR
+   ========================================= */
+
+.tracking-progress {
+    position: absolute;
+    top: 15px;
+    left: 10%;
+    right: 10%;
+    height: 2px;
+    background: #ddd;
+    z-index: 0;
+    overflow: hidden;
+}
+
+
+/* MOVING FILLED PART */
+
+.tracking-progress-fill {
+    height: 100%;
+    width: 0;
+    background: #222;
+
+    /* Slow and smooth movement */
+    transition: width 1.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+
+/* =========================================
+   TRACKING STEPS
+   ========================================= */
+
+.tracking-steps {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    z-index: 1;
+}
+
+.tracking-step {
+    width: 20%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+
+/* =========================================
+   TRACKING DOT
+   ========================================= */
+
+.tracking-dot {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+
+    background: #fff;
+    border: 1px solid #ccc;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 11px;
+    color: #999;
+
+    margin-bottom: 12px;
+
+    transition:
+        background 0.5s ease,
+        color 0.5s ease,
+        border-color 0.5s ease,
+        transform 0.5s ease;
+}
+
+
+/* =========================================
+   TRACKING LABEL
+   ========================================= */
+
+.tracking-step span {
+    font-size: 8px;
+    letter-spacing: 1.5px;
+    color: #999;
+    line-height: 1.4;
+    white-space: nowrap;
+
+    transition:
+        color 0.5s ease,
+        font-weight 0.5s ease;
+}
+
+
+/* =========================================
+   COMPLETED STEPS
+   ========================================= */
+
+.status-placed .tracking-step:nth-child(1) .tracking-dot,
+
+.status-confirmed .tracking-step:nth-child(-n+2) .tracking-dot,
+
+.status-shipped .tracking-step:nth-child(-n+3) .tracking-dot,
+
+.status-out-for-delivery .tracking-step:nth-child(-n+4) .tracking-dot,
+
+.status-delivered .tracking-step:nth-child(-n+5) .tracking-dot {
+
+    background: #222;
+    border-color: #222;
+    color: #fff;
+}
+
+
+/* =========================================
+   COMPLETED LABELS
+   ========================================= */
+
+.status-placed .tracking-step:nth-child(1) span,
+
+.status-confirmed .tracking-step:nth-child(-n+2) span,
+
+.status-shipped .tracking-step:nth-child(-n+3) span,
+
+.status-out-for-delivery .tracking-step:nth-child(-n+4) span,
+
+.status-delivered .tracking-step:nth-child(-n+5) span {
+
+    color: #222;
+    font-weight: 600;
+}
+
+
+/* =========================================
+   CURRENT STEP - SLIGHTLY LARGER
+   ========================================= */
+
+.status-placed .tracking-step:nth-child(1) .tracking-dot,
+
+.status-confirmed .tracking-step:nth-child(2) .tracking-dot,
+
+.status-shipped .tracking-step:nth-child(3) .tracking-dot,
+
+.status-out-for-delivery .tracking-step:nth-child(4) .tracking-dot,
+
+.status-delivered .tracking-step:nth-child(5) .tracking-dot {
+
+    transform: scale(1.15);
+}
+
+
+/* =========================================
+   PROGRESS WIDTH
+   ========================================= */
+
+.status-placed .tracking-progress-fill {
+    width: 0%;
+}
+
+.status-confirmed .tracking-progress-fill {
+    width: 25%;
+}
+
+.status-shipped .tracking-progress-fill {
+    width: 50%;
+}
+
+.status-out-for-delivery .tracking-progress-fill {
+    width: 75%;
+}
+
+.status-delivered .tracking-progress-fill {
+    width: 100%;
+}
+
+
+/* =========================================
+   MAIN LAYOUT
+   ========================================= */
+
+.order-detail-layout {
+    display: grid;
+    grid-template-columns: 1fr 330px;
+    gap: 55px;
+    align-items: start;
+}
+
+
+/* =========================================
+   PRODUCTS
+   ========================================= */
+
+.order-products {
+    border-top: 1px solid #ddd;
+}
+
+.order-products > h2 {
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 27px;
+    font-weight: 400;
+    padding: 25px 0;
+    border-bottom: 1px solid #ddd;
+}
+
+
+/* =========================================
+   PRODUCT
+   ========================================= */
+
+.order-product {
+    display: grid;
+    grid-template-columns: 120px 1fr 130px;
+    gap: 25px;
+    align-items: center;
+    padding: 25px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.order-product-image {
+    width: 120px;
+    height: 145px;
+    overflow: hidden;
+    background: #eee;
+}
+
+.order-product-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+
+/* =========================================
+   PRODUCT INFO
+   ========================================= */
+
+.order-product-brand {
+    font-size: 9px;
+    letter-spacing: 2px;
+    color: #888;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+}
+
+.order-product-info h3 {
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 20px;
+    font-weight: 400;
+    margin-bottom: 12px;
+}
+
+.order-product-size,
+.order-product-quantity {
+    font-size: 12px;
+    color: #777;
+    margin-bottom: 5px;
+}
+
+
+/* =========================================
+   PRODUCT PRICE
+   ========================================= */
+
+.order-product-price {
+    text-align: right;
+}
+
+.order-product-price span {
+    display: block;
+    font-size: 12px;
+    color: #777;
+    margin-bottom: 8px;
+}
+
+.order-product-price strong {
+    font-size: 15px;
+}
+
+
+/* =========================================
+   ORDER SUMMARY
+   ========================================= */
+
+.order-summary {
+    border: 1px solid #ddd;
+    padding: 30px;
+}
+
+.order-summary h2 {
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 25px;
+    font-weight: 400;
+    margin-bottom: 25px;
+}
+
+.summary-line {
+    display: flex;
+    justify-content: space-between;
+    padding: 15px 0;
+    border-bottom: 1px solid #eee;
+    font-size: 14px;
+}
+
+.summary-total {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px 0 5px;
+    font-size: 17px;
+}
+
+
+/* =========================================
+   DELIVERY ADDRESS
+   ========================================= */
+
+.delivery-card {
+    margin-top: 45px;
+    border: 1px solid #ddd;
+    padding: 30px;
+}
+
+.delivery-card h2 {
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 25px;
+    font-weight: 400;
+    margin-bottom: 25px;
+}
+
+.delivery-content {
+    color: #555;
+    font-size: 14px;
+    line-height: 1.8;
+}
+
+.delivery-content strong {
+    color: #222;
+    font-size: 15px;
+}
+
+.delivery-content p {
+    margin: 2px 0;
+}
+
+
+/* =========================================
+   BACK BUTTON
+   ========================================= */
+
+.order-back {
+    margin-top: 30px;
+}
+
+.order-back a {
+    display: inline-block;
+    padding: 14px 25px;
+    background: #222;
+    color: white;
+    text-decoration: none;
+    font-size: 9px;
+    letter-spacing: 2px;
+    font-weight: 700;
+    transition: background 0.3s ease;
+}
+
+.order-back a:hover {
+    background: #444;
+}
+
+
+/* =========================================
+   ACCESSIBILITY
+   ========================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .tracking-progress-fill,
+    .tracking-dot,
+    .tracking-step span {
+        transition: none;
+    }
+}
+
+/* =========================================
+   CANCEL ORDER
+   ========================================= */
+
+.cancel-order-section {
+    margin-top: -20px;
+    margin-bottom: 45px;
+}
+
+.cancel-order-button {
+    padding: 13px 24px;
+    background: #fff;
+    color: #222;
+    border: 1px solid #222;
+    font-size: 9px;
+    letter-spacing: 2px;
+    font-weight: 700;
+    cursor: pointer;
+    transition:
+        background 0.3s ease,
+        color 0.3s ease;
+}
+
+.cancel-order-button:hover {
+    background: #222;
+    color: #fff;
+}
+
+/* =========================================
+   CANCELLED ORDER TRACKING
+   ========================================= */
+
+.cancelled-tracking {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    padding: 20px 0 10px;
+}
+
+.cancelled-icon {
+    width: 42px;
+    height: 42px;
+    border: 1px solid #222;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 25px;
+    font-weight: 300;
+    line-height: 1;
+}
+
+.cancelled-content strong {
+    display: block;
+    font-size: 11px;
+    letter-spacing: 2px;
+    margin-bottom: 7px;
+}
+
+.cancelled-content p {
+    margin: 0;
+    font-size: 13px;
+    color: #777;
+}
+
+
+/* =========================================
+   MOBILE - CANCELLED TRACKING
+   ========================================= */
+
+@media (max-width: 600px) {
+
+    .cancelled-tracking {
+        justify-content: flex-start;
+        gap: 15px;
+    }
+
+    .cancelled-icon {
+        width: 36px;
+        height: 36px;
+        font-size: 21px;
+    }
+
+    .cancelled-content strong {
+        font-size: 9px;
+    }
+
+    .cancelled-content p {
+        font-size: 11px;
+    }
+
+}
+
+/* =========================================
+   ORDER ACTIONS
+   ========================================= */
+
+.order-actions {
+    margin-top: 30px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+
+/* =========================================
+   CANCEL ORDER BUTTON
+   ========================================= */
+
+.cancel-order-button {
+    display: inline-block;
+    padding: 14px 25px;
+
+    background: #fff;
+    color: #222;
+
+    border: 1px solid #222;
+
+    font-size: 9px;
+    letter-spacing: 2px;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition:
+        background 0.3s ease,
+        color 0.3s ease,
+        border-color 0.3s ease;
+}
+
+.cancel-order-button:hover {
+    background: #222;
+    color: #fff;
+}
+
+
+/* =========================================
+   BACK BUTTON
+   ========================================= */
+
+.order-actions .order-back {
+    margin-top: 0;
+}
+
+
+/* =========================================
+   MOBILE
+   ========================================= */
+
+@media (max-width: 600px) {
+
+    .order-actions {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .cancel-order-button {
+        width: 100%;
+    }
+
+    .order-actions .order-back a {
+        width: 100%;
+        text-align: center;
+    }
+
+}
+
+/* =========================================
+   TABLET
+   ========================================= */
+
+@media (max-width: 850px) {
+
+    .order-detail-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .order-summary {
+        order: -1;
+    }
+
+    .order-info-card {
+        grid-template-columns: 1fr;
+    }
+
+    .order-info {
+        border-right: none;
+        border-bottom: 1px solid #eee;
+    }
+
+    .order-info:last-child {
+        border-bottom: none;
+    }
+}
+
+
+/* =========================================
+   MOBILE
+   ========================================= */
+
+@media (max-width: 600px) {
+
+    .order-detail-page {
+        width: 92%;
+        margin: 50px auto 80px;
+    }
+
+    .order-detail-header h1 {
+        font-size: 38px;
+    }
+
+    .order-product {
+        grid-template-columns: 90px 1fr;
+        gap: 15px;
+    }
+
+    .order-product-image {
+        width: 90px;
+        height: 115px;
+    }
+
+    .order-product-price {
+        grid-column: 2;
+        text-align: left;
+    }
+
+    .delivery-card {
+        padding: 22px;
+    }
+
+
+    /* Tracking mobile */
+
+    .order-tracking {
+        padding: 25px 18px 30px;
+    }
+
+    .tracking-wrapper {
+        padding: 0;
+    }
+
+    .tracking-progress {
+        left: 10%;
+        right: 10%;
+    }
+
+    .tracking-step span {
+        font-size: 7px;
+        letter-spacing: 1px;
+    }
+
+    .tracking-dot {
+        width: 26px;
+        height: 26px;
+        font-size: 10px;
+    }
+}

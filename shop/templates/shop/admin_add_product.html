@@ -1,0 +1,396 @@
+{% load static %}
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        Add Product
+    </title>
+
+
+    <style>
+
+        body {
+
+            margin: 0;
+
+            padding: 40px;
+
+            font-family: Arial, sans-serif;
+
+            background: #f5f5f5;
+        }
+
+
+        .container {
+
+            max-width: 800px;
+
+            margin: auto;
+
+            background: white;
+
+            padding: 30px;
+
+            border: 1px solid #ddd;
+        }
+
+
+        h1 {
+
+            margin-top: 0;
+        }
+
+
+        .field {
+
+            margin-bottom: 18px;
+        }
+
+
+        label {
+
+            display: block;
+
+            margin-bottom: 7px;
+
+            font-size: 13px;
+
+            font-weight: bold;
+        }
+
+
+        input,
+        textarea,
+        select {
+
+            width: 100%;
+
+            padding: 11px;
+
+            box-sizing: border-box;
+
+            border: 1px solid #ccc;
+        }
+
+
+        textarea {
+
+            min-height: 100px;
+
+            resize: vertical;
+        }
+
+
+        .help-text {
+
+            margin-top: 7px;
+
+            font-size: 12px;
+
+            color: #666;
+
+            line-height: 1.5;
+        }
+
+
+        .button {
+
+            padding: 12px 20px;
+
+            background: #111;
+
+            color: white;
+
+            border: none;
+
+            cursor: pointer;
+        }
+
+
+        .back {
+
+            display: inline-block;
+
+            margin-left: 10px;
+
+            color: #111;
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<div class="container">
+
+
+    <h1>
+        Add Product
+    </h1>
+
+
+    <form method="POST">
+
+        {% csrf_token %}
+
+
+        <!-- CATEGORY -->
+
+        <div class="field">
+
+            <label>
+                Category
+            </label>
+
+            <select
+                name="category_id"
+                required
+            >
+
+                <option value="">
+                    Select Category
+                </option>
+
+                {% for category in categories %}
+
+                    <option
+                        value="{{ category.category_id }}"
+                    >
+                        {{ category.category_name }}
+                    </option>
+
+                {% endfor %}
+
+            </select>
+
+        </div>
+
+
+        <!-- PRODUCT NAME -->
+
+        <div class="field">
+
+            <label>
+                Product Name
+            </label>
+
+            <input
+                type="text"
+                name="product_name"
+                required
+            >
+
+        </div>
+
+
+        <!-- DESCRIPTION -->
+
+        <div class="field">
+
+            <label>
+                Description
+            </label>
+
+            <textarea
+                name="description"
+                required
+            ></textarea>
+
+        </div>
+
+
+        <!-- PRICE -->
+
+        <div class="field">
+
+            <label>
+                Price
+            </label>
+
+            <input
+                type="number"
+                name="price"
+                step="0.01"
+                min="0"
+                required
+            >
+
+        </div>
+
+
+        <!-- BRAND -->
+
+        <div class="field">
+
+            <label>
+                Brand
+            </label>
+
+            <input
+                type="text"
+                name="brand"
+            >
+
+        </div>
+
+
+        <!-- IMAGE PATH -->
+
+        <div class="field">
+
+            <label>
+                Image Path
+            </label>
+
+            <input
+                type="text"
+                name="image_url"
+                placeholder="shop/images/products/..."
+                required
+            >
+
+            <div class="help-text">
+
+                Enter the path of an existing image
+                inside your static folder.
+
+                <br><br>
+
+                Example:
+
+                <br>
+
+                shop/images/products/men_products/men_shirts_Tshirts/men_casual_cotton_shirt.jpg
+
+            </div>
+
+        </div>
+
+
+        <!-- PRODUCT TYPE -->
+
+        <div class="field">
+
+            <label>
+                Product Type
+            </label>
+
+            <input
+                type="text"
+                name="product_type"
+                placeholder="mens_shirts / womens_tops / casual_sneakers"
+            >
+
+        </div>
+
+
+        <!-- GENDER -->
+
+        <div class="field">
+
+            <label>
+                Gender
+            </label>
+
+            <select
+                name="gender"
+            >
+
+                <option value="">
+                    Select Gender
+                </option>
+
+                <option value="Men">
+                    Men
+                </option>
+
+                <option value="Women">
+                    Women
+                </option>
+
+                <option value="Kids">
+                    Kids
+                </option>
+
+            </select>
+
+        </div>
+
+
+        <!-- SIZE -->
+
+        <div class="field">
+
+            <label>
+                Size
+            </label>
+
+            <input
+                type="text"
+                name="size"
+                placeholder="S / M / L / XL"
+                required
+            >
+
+        </div>
+
+
+        <!-- STOCK -->
+
+        <div class="field">
+
+            <label>
+                Stock Quantity
+            </label>
+
+            <input
+                type="number"
+                name="stock_quantity"
+                min="0"
+                required
+            >
+
+        </div>
+
+
+        <!-- SUBMIT -->
+
+        <button
+            type="submit"
+            class="button"
+        >
+            ADD PRODUCT
+        </button>
+
+
+        <a
+            href="{% url 'admin_products' %}"
+            class="back"
+        >
+            Cancel
+        </a>
+
+
+    </form>
+
+
+</div>
+
+
+</body>
+
+</html>

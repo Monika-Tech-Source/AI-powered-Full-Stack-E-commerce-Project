@@ -1,0 +1,434 @@
+{% load static %}
+
+
+{% block extra_css %}
+
+<link
+    rel="stylesheet"
+    href="{% static 'shop/css/product_detail.css' %}"
+>
+
+{% endblock %}
+
+
+{% block content %}
+
+
+<section class="product-detail">
+
+
+    <!-- =========================================
+     PRODUCT IMAGE
+     ========================================= -->
+
+<div class="product-detail-image">
+
+    <div class="main-product-image">
+
+        {% if product.image_url %}
+
+            {% if "http://" in product.image_url or "https://" in product.image_url %}
+
+                <img
+                    id="mainProductImage"
+                    src="{{ product.image_url }}"
+                    alt="{{ product.product_name }}"
+                >
+
+            {% else %}
+
+                <img
+                    id="mainProductImage"
+                    src="{% static product.image_url %}"
+                    alt="{{ product.product_name }}"
+                >
+
+            {% endif %}
+
+        {% else %}
+
+            <p>No image available.</p>
+
+        {% endif %}
+
+    </div>
+
+</div>
+        <!-- =========================================
+             PRODUCT IMAGE THUMBNAILS
+             ========================================= -->
+
+        {% if product_images %}
+
+            <div class="product-image-thumbnails">
+
+                {% for image in product_images %}
+
+                    {% if image.image_url != product.image_url %}
+
+                        <button
+                            type="button"
+                            class="image-thumbnail"
+                            onclick="changeProductImage(
+                                '{% static image.image_url %}',
+                                this
+                            )"
+                        >
+
+                            <img
+                                src="{% static image.image_url %}"
+                                alt="{{ product.product_name }}"
+                            >
+
+                        </button>
+
+                    {% endif %}
+
+                {% endfor %}
+
+            </div>
+
+        {% endif %}
+
+    </div>
+
+
+    <!-- =========================================
+         PRODUCT INFORMATION
+         ========================================= -->
+
+    <div class="product-detail-info">
+
+
+        <!-- BRAND -->
+
+        <p class="product-brand">
+            {{ product.brand }}
+        </p>
+
+
+        <!-- PRODUCT NAME -->
+
+        <h1>
+            {{ product.product_name }}
+        </h1>
+
+
+        <!-- PRICE -->
+
+        <p class="product-price">
+            ₹{{ product.price }}
+        </p>
+
+
+        <!-- =========================================
+             PRODUCT DESCRIPTION
+             ========================================= -->
+
+        <div class="product-description">
+
+            <h3>
+                PRODUCT DETAILS
+            </h3>
+
+            <p>
+                {{ product.description }}
+            </p>
+
+            <p>
+                Stylish and comfortable fashion designed
+                for everyday wear.
+                Perfect for creating a modern and effortless look.
+            </p>
+
+        </div>
+
+
+        <!-- =========================================
+             SIZE + STOCK + ADD TO CART
+             ========================================= -->
+
+        <form
+            method="POST"
+            class="cart-form"
+        >
+
+            {% csrf_token %}
+
+
+            <div class="product-size">
+
+                <h3>
+                    SELECT SIZE
+                </h3>
+
+
+                <div class="size-options">
+
+                    {% for variant in variants %}
+
+                        <label
+                            class="
+                                size-option
+                                {% if variant.stock_quantity <= 0 %}
+                                    out-of-stock
+                                {% endif %}
+                            "
+                        >
+
+                            <input
+                                type="radio"
+                                name="variant_id"
+                                value="{{ variant.variant_id }}"
+                                data-stock="{{ variant.stock_quantity }}"
+
+                                {% if variant.stock_quantity <= 0 %}
+                                    disabled
+                                {% endif %}
+                            >
+
+                            <span>
+
+                                {% if product.category.category_name == "Accessories" %}
+
+                                    One Size
+
+                                {% else %}
+
+                                    {{ variant.size }}
+
+                                {% endif %}
+
+                            </span>
+
+                        </label>
+
+                    {% empty %}
+
+                        <p class="no-sizes">
+                            No sizes available.
+                        </p>
+
+                    {% endfor %}
+
+                </div>
+
+            </div>
+
+
+            <!-- =========================================
+                 STOCK INFORMATION
+                 ========================================= -->
+
+            <div
+                class="stock-information"
+                id="stock-information"
+            >
+            </div>
+
+
+            <!-- =========================================
+                 ADD TO CART
+                 ========================================= -->
+
+            <button
+                type="submit"
+                class="add-cart-button"
+                id="add-cart-button"
+                disabled
+            >
+                SELECT SIZE
+            </button>
+
+        </form>
+
+
+        <!-- =========================================
+             WISHLIST
+             ========================================= -->
+
+        <form
+            method="POST"
+            action="{% url 'toggle_wishlist' product.product_id %}"
+            class="wishlist-form"
+        >
+
+            {% csrf_token %}
+
+            <button
+                type="submit"
+                class="wishlist-button"
+            >
+
+                {% if is_in_wishlist %}
+
+                    ♥ Remove from Wishlist
+
+                {% else %}
+
+                    ♡ Add to Wishlist
+
+                {% endif %}
+
+            </button>
+
+        </form>
+
+
+    </div>
+
+</section>
+
+
+<!-- =========================================
+     IMAGE SWITCHING SCRIPT
+     ========================================= -->
+
+<script>
+
+function changeProductImage(imageUrl, thumbnail) {
+
+    const mainImage = document.getElementById(
+        'mainProductImage'
+    );
+
+    mainImage.src = imageUrl;
+
+
+    const thumbnails = document.querySelectorAll(
+        '.image-thumbnail'
+    );
+
+
+    thumbnails.forEach(function(item) {
+
+        item.classList.remove('active');
+
+    });
+
+
+    thumbnail.classList.add('active');
+
+}
+
+
+// =========================================
+// STOCK SCRIPT
+// =========================================
+
+const sizeOptions = document.querySelectorAll(
+    'input[name="variant_id"]'
+);
+
+
+const stockInformation = document.getElementById(
+    'stock-information'
+);
+
+
+const addCartButton = document.getElementById(
+    'add-cart-button'
+);
+
+
+// =========================================
+// NO AVAILABLE SIZES
+// =========================================
+
+if (sizeOptions.length === 0) {
+
+    addCartButton.disabled = true;
+
+    addCartButton.textContent = 'UNAVAILABLE';
+
+    stockInformation.innerHTML =
+        '<p class="out-stock-message">' +
+        'Currently unavailable' +
+        '</p>';
+
+}
+
+
+// =========================================
+// SIZE SELECTION
+// =========================================
+
+sizeOptions.forEach(function(option) {
+
+    option.addEventListener('change', function() {
+
+        const stock = parseInt(
+            this.dataset.stock
+        );
+
+
+        // =========================================
+        // OUT OF STOCK
+        // =========================================
+
+        if (stock <= 0) {
+
+            stockInformation.innerHTML =
+                '<p class="out-stock-message">' +
+                'Out of stock' +
+                '</p>';
+
+
+            addCartButton.disabled = true;
+
+
+            addCartButton.textContent =
+                'OUT OF STOCK';
+
+
+            return;
+
+        }
+
+
+        // =========================================
+        // LOW STOCK
+        // =========================================
+
+        if (stock <= 3) {
+
+            stockInformation.innerHTML =
+                '<p class="low-stock">' +
+                'Only ' + stock +
+                ' left in stock' +
+                '</p>';
+
+        }
+
+
+        // =========================================
+        // NORMAL STOCK
+        // =========================================
+
+        else {
+
+            stockInformation.innerHTML =
+                '<p class="in-stock-message">' +
+                'In stock' +
+                '</p>';
+
+        }
+
+
+        // =========================================
+        // ENABLE ADD TO CART
+        // =========================================
+
+        addCartButton.disabled = false;
+
+        addCartButton.textContent =
+            'ADD TO CART';
+
+    });
+
+});
+
+</script>
+
+
+{% endblock %}

@@ -1,0 +1,533 @@
+{% extends 'shop/base.html' %}
+{% load static %}
+
+
+{% block extra_css %}
+
+<link
+    rel="stylesheet"
+    href="{% static 'shop/css/category.css' %}?v=9999"
+>
+
+{% endblock %}
+
+
+{% block content %}
+
+
+<section class="category-page">
+
+
+    <!-- =========================================
+         CATEGORY HEADER
+         ========================================= -->
+
+    <div class="category-header">
+
+        <p class="category-label">
+            SHOP
+        </p>
+
+        <h1>
+            {{ category.category_name }}
+        </h1>
+
+        <p class="category-description">
+            {{ category.description }}
+        </p>
+
+    </div>
+
+
+    <!-- =========================================
+         SUBCATEGORY LINKS
+         ========================================= -->
+
+    <div class="subcategory-links">
+
+        {% if category.category_name == "Men" %}
+
+            <a
+                href="{% url 'category_products' category.category_id %}"
+            >
+                All Men
+            </a>
+
+            <a
+                href="{% url 'category_products' category.category_id %}?gender=Men"
+            >
+                Men's Products
+            </a>
+
+
+        {% elif category.category_name == "Women" %}
+
+            <a
+                href="{% url 'category_products' category.category_id %}"
+            >
+                All Women
+            </a>
+
+            <a
+                href="{% url 'category_products' category.category_id %}?gender=Women"
+            >
+                Women's Products
+            </a>
+
+
+        {% elif category.category_name == "Kids" %}
+
+            <a
+                href="{% url 'category_products' category.category_id %}"
+            >
+                All Kids
+            </a>
+
+            <a
+                href="{% url 'category_products' category.category_id %}?gender=Kids"
+            >
+                Kids Products
+            </a>
+
+
+        {% elif category.category_name == "Dresses" %}
+
+            <a
+                href="{% url 'category_products' category.category_id %}?product_type=mens_dresses"
+            >
+                Men's Dresses
+            </a>
+
+            <a
+                href="{% url 'category_products' category.category_id %}?product_type=womens_dresses"
+            >
+                Women's Dresses
+            </a>
+
+
+        {% elif category.category_name == "T-Shirts" %}
+
+            <a
+                href="{% url 'category_products' category.category_id %}?product_type=mens_tshirts"
+            >
+                Men's T-Shirts
+            </a>
+
+            <a
+                href="{% url 'category_products' category.category_id %}?product_type=womens_tshirts"
+            >
+                Women's T-Shirts
+            </a>
+
+
+        {% elif category.category_name == "Shirts" %}
+
+            <a
+                href="{% url 'category_products' category.category_id %}?product_type=mens_shirts"
+            >
+                Men's Shirts
+            </a>
+
+            <a
+                href="{% url 'category_products' category.category_id %}?product_type=womens_shirts"
+            >
+                Women's Shirts
+            </a>
+
+
+        {% elif category.category_name == "Jeans" %}
+
+            <a
+                href="{% url 'category_products' category.category_id %}?gender=Men"
+            >
+                Men's Jeans
+            </a>
+
+            <a
+                href="{% url 'category_products' category.category_id %}?gender=Women"
+            >
+                Women's Jeans
+            </a>
+
+
+        {% elif category.category_name == "Footwear" %}
+
+            <a
+                href="{% url 'category_products' category.category_id %}?product_type=casual_sneakers"
+            >
+                Casual Sneakers
+            </a>
+
+            <a
+                href="{% url 'category_products' category.category_id %}?product_type=running_shoes"
+            >
+                Running Shoes
+            </a>
+
+            <a
+                href="{% url 'category_products' category.category_id %}?product_type=sandals"
+            >
+                Sandals
+            </a>
+
+            <a
+                href="{% url 'category_products' category.category_id %}?product_type=flats"
+            >
+                Flats
+            </a>
+
+            <a
+                href="{% url 'category_products' category.category_id %}?product_type=heels"
+            >
+                Heels
+            </a>
+
+
+        {% elif category.category_name == "Accessories" %}
+
+            <a
+                href="{% url 'category_products' category.category_id %}?product_type=classic_handbags"
+            >
+                Handbags
+            </a>
+
+            <a
+                href="{% url 'category_products' category.category_id %}?product_type=leather_belts"
+            >
+                Leather Belts
+            </a>
+
+            <a
+                href="{% url 'category_products' category.category_id %}?gender=Men"
+            >
+                Men's Accessories
+            </a>
+
+            <a
+                href="{% url 'category_products' category.category_id %}?gender=Women"
+            >
+                Women's Accessories
+            </a>
+
+        {% endif %}
+
+    </div>
+
+
+    <!-- =========================================
+         FILTER + SORT
+         ========================================= -->
+
+    <form
+        method="GET"
+        action="{% url 'category_products' category.category_id %}"
+        class="product-controls"
+    >
+
+        <div class="filter-section">
+
+            <p class="filter-title">
+                FILTER BY
+            </p>
+
+
+            <!-- GENDER -->
+
+            <div class="filter-group">
+
+                <label for="gender">
+                    Gender
+                </label>
+
+                <select
+                    name="gender"
+                    id="gender"
+                >
+
+                    <option value="">
+                        All
+                    </option>
+
+                    {% for item_gender in genders %}
+
+                        {% if item_gender %}
+
+                            <option
+                                value="{{ item_gender }}"
+                                {% if selected_gender == item_gender %}
+                                    selected
+                                {% endif %}
+                            >
+                                {{ item_gender }}
+                            </option>
+
+                        {% endif %}
+
+                    {% endfor %}
+
+                </select>
+
+            </div>
+
+
+            <!-- PRODUCT TYPE -->
+
+            <div class="filter-group">
+
+                <label for="product_type">
+                    Product Type
+                </label>
+
+                <select
+                    name="product_type"
+                    id="product_type"
+                >
+
+                    <option value="">
+                        All
+                    </option>
+
+                    {% for item_type in product_types %}
+
+                        {% if item_type %}
+
+                            <option
+                                value="{{ item_type }}"
+                                {% if selected_product_type == item_type %}
+                                    selected
+                                {% endif %}
+                            >
+                                {{ item_type }}
+                            </option>
+
+                        {% endif %}
+
+                    {% endfor %}
+
+                </select>
+
+            </div>
+
+
+            <!-- MINIMUM PRICE -->
+
+            <div class="filter-group">
+
+                <label for="min_price">
+                    Minimum Price
+                </label>
+
+                <input
+                    type="number"
+                    name="min_price"
+                    id="min_price"
+                    placeholder="₹ Min"
+                    value="{{ min_price }}"
+                    min="0"
+                >
+
+            </div>
+
+
+            <!-- MAXIMUM PRICE -->
+
+            <div class="filter-group">
+
+                <label for="max_price">
+                    Maximum Price
+                </label>
+
+                <input
+                    type="number"
+                    name="max_price"
+                    id="max_price"
+                    placeholder="₹ Max"
+                    value="{{ max_price }}"
+                    min="0"
+                >
+
+            </div>
+
+        </div>
+
+
+        <!-- SORT -->
+
+        <div class="sort-section">
+
+            <label for="sort">
+                SORT BY
+            </label>
+
+            <select
+                name="sort"
+                id="sort"
+            >
+
+                <option value="">
+                    Recommended
+                </option>
+
+                <option
+                    value="newest"
+                    {% if selected_sort == "newest" %}
+                        selected
+                    {% endif %}
+                >
+                    Newest
+                </option>
+
+                <option
+                    value="price_low"
+                    {% if selected_sort == "price_low" %}
+                        selected
+                    {% endif %}
+                >
+                    Price: Low to High
+                </option>
+
+                <option
+                    value="price_high"
+                    {% if selected_sort == "price_high" %}
+                        selected
+                    {% endif %}
+                >
+                    Price: High to Low
+                </option>
+
+                <option
+                    value="name_az"
+                    {% if selected_sort == "name_az" %}
+                        selected
+                    {% endif %}
+                >
+                    Name: A-Z
+                </option>
+
+                <option
+                    value="name_za"
+                    {% if selected_sort == "name_za" %}
+                        selected
+                    {% endif %}
+                >
+                    Name: Z-A
+                </option>
+
+            </select>
+
+        </div>
+
+
+        <!-- BUTTONS -->
+
+        <div class="control-buttons">
+
+            <button
+                type="submit"
+                class="apply-filters"
+            >
+                APPLY
+            </button>
+
+            <a
+                href="{% url 'category_products' category.category_id %}"
+                class="clear-filters"
+            >
+                CLEAR
+            </a>
+
+        </div>
+
+    </form>
+
+
+    <!-- =========================================
+         PRODUCT COUNT
+         ========================================= -->
+
+    <div class="product-result-header">
+
+        <p>
+            {{ products|length }} products
+        </p>
+
+    </div>
+
+
+    <!-- =========================================
+         PRODUCTS
+         ========================================= -->
+
+    <div class="product-grid">
+
+        {% for product in products %}
+
+            <article class="product-card">
+
+                <a
+                    href="{% url 'product_detail' product.product_id %}"
+                >
+
+                    <div class="product-image">
+
+                        {% if product.image_url %}
+
+                            <img
+                                src="{% static product.image_url %}"
+                                alt="{{ product.product_name }}"
+                            >
+
+                        {% endif %}
+
+                    </div>
+
+
+                    <div class="product-info">
+
+                        <p class="product-brand">
+                            {{ product.brand }}
+                        </p>
+
+                        <h3>
+                            {{ product.product_name }}
+                        </h3>
+
+                        <p class="product-price">
+                            ₹{{ product.price }}
+                        </p>
+
+                    </div>
+
+                </a>
+
+            </article>
+
+        {% empty %}
+
+            <div class="no-products">
+
+                <h2>
+                    No products found
+                </h2>
+
+                <p>
+                    Try changing your filters.
+                </p>
+
+                <a
+                    href="{% url 'category_products' category.category_id %}"
+                    class="clear-filters"
+                >
+                    CLEAR FILTERS
+                </a>
+
+            </div>
+
+        {% endfor %}
+
+    </div>
+
+</section>
+
+
+{% endblock %}

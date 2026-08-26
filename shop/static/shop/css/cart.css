@@ -1,0 +1,631 @@
+/* =========================================
+   CART PAGE
+========================================= */
+
+.cart-page {
+    width: 92%;
+    max-width: 1280px;
+    margin: 70px auto 100px;
+}
+
+
+/* =========================================
+   CART HEADER
+========================================= */
+
+.cart-header {
+    margin-bottom: 50px;
+}
+
+.cart-label {
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #727272;
+    margin-bottom: 12px;
+}
+
+.cart-header h1 {
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 46px;
+    font-weight: 400;
+    color: #222;
+    margin-bottom: 14px;
+}
+
+.cart-description {
+    color: #666;
+    font-size: 14px;
+}
+
+
+/* =========================================
+   CART LAYOUT
+========================================= */
+
+.cart-container {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 350px;
+    gap: 60px;
+    align-items: start;
+}
+
+
+/* =========================================
+   CART ITEMS
+========================================= */
+
+.cart-items {
+    width: 100%;
+}
+
+
+/* =========================================
+   CART ITEM
+========================================= */
+
+.cart-item {
+    display: grid;
+    grid-template-columns: 150px minmax(0, 1fr) 110px 120px;
+
+    gap: 25px;
+
+    padding: 25px 0;
+
+    border-top: 1px solid #ddd;
+
+    align-items: center;
+}
+
+.cart-item:last-child {
+    border-bottom: 1px solid #ddd;
+}
+
+
+/* =========================================
+   PRODUCT IMAGE
+========================================= */
+
+.cart-item-image {
+    width: 150px;
+    height: 180px;
+
+    overflow: hidden;
+
+    background: #eeeeeb;
+    border-radius: 5px;
+}
+
+.cart-item-image img {
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+    display: block;
+
+    transition: transform 0.4s ease;
+}
+
+.cart-item-image:hover img {
+    transform: scale(1.04);
+}
+
+
+/* =========================================
+   PRODUCT INFORMATION
+========================================= */
+
+.cart-item-info {
+    min-width: 0;
+}
+
+.cart-brand {
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #777;
+    margin-bottom: 8px;
+}
+
+.cart-item-info h2 {
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 1.3;
+
+    margin-bottom: 12px;
+
+    color: #222;
+}
+
+.cart-size {
+    font-size: 13px;
+    color: #666;
+    margin-bottom: 8px;
+}
+
+.cart-price {
+    font-size: 14px;
+    font-weight: 600;
+    color: #222;
+}
+
+
+/* =========================================
+   STOCK STATUS
+========================================= */
+
+.cart-stock-status {
+    margin-top: 12px;
+}
+
+.cart-stock-status span {
+    display: inline-block;
+
+    font-size: 9px;
+    letter-spacing: 1px;
+    font-weight: 600;
+
+    padding: 6px 9px;
+}
+
+
+/* AVAILABLE */
+
+.stock-available {
+    color: #356b45;
+    background: #f1f7f2;
+    border: 1px solid #c8dfce;
+}
+
+
+/* LOW STOCK */
+
+.stock-low {
+    color: #8a5a2b;
+    background: #faf5ee;
+    border: 1px solid #dfc8ad;
+}
+
+
+/* OUT OF STOCK */
+
+.stock-out {
+    color: #a00000;
+    background: #faf0f0;
+    border: 1px solid #e0bcbc;
+}
+
+
+/* INSUFFICIENT STOCK */
+
+.stock-insufficient {
+    color: #a00000;
+    background: #faf0f0;
+    border: 1px solid #e0bcbc;
+}
+
+
+/* =========================================
+   REMOVE BUTTON
+========================================= */
+
+.remove-button {
+    margin-top: 15px;
+
+    padding: 6px 0;
+
+    background: none;
+    border: none;
+
+    color: #777;
+
+    font-size: 10px;
+    letter-spacing: 1px;
+
+    cursor: pointer;
+}
+
+.remove-button:hover {
+    color: #b40000;
+}
+
+
+/* =========================================
+   QUANTITY
+========================================= */
+
+.cart-quantity p,
+.cart-subtotal p {
+    font-size: 10px;
+
+    text-transform: uppercase;
+    letter-spacing: 1px;
+
+    color: #777;
+
+    margin-bottom: 8px;
+}
+
+
+/* =========================================
+   QUANTITY CONTROLS
+========================================= */
+
+.quantity-controls {
+    display: flex;
+    align-items: center;
+
+    margin-top: 8px;
+}
+
+.quantity-controls form {
+    margin: 0;
+    padding: 0;
+}
+
+.quantity-controls button {
+    width: 32px;
+    height: 32px;
+
+    border: 1px solid #ccc;
+
+    background: #fff;
+    color: #222;
+
+    font-size: 17px;
+
+    cursor: pointer;
+
+    transition: 0.2s ease;
+}
+
+.quantity-controls button:hover:not(:disabled) {
+    background: #222;
+    color: #fff;
+    border-color: #222;
+}
+
+.quantity-controls button:disabled {
+    background: #f3f3f3;
+    color: #aaa;
+    cursor: not-allowed;
+}
+
+.quantity-controls span {
+    width: 40px;
+    height: 32px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+
+    font-size: 13px;
+}
+
+
+/* =========================================
+   SUBTOTAL
+========================================= */
+
+.cart-subtotal strong {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+
+/* =========================================
+   CART SUMMARY
+========================================= */
+
+.cart-summary {
+    border: 1px solid #ddd;
+
+    padding: 30px;
+
+    position: sticky;
+    top: 30px;
+
+    background: #fff;
+}
+
+.cart-summary h2 {
+    font-family: Georgia, "Times New Roman", serif;
+
+    font-size: 25px;
+    font-weight: 400;
+
+    margin-bottom: 25px;
+}
+
+
+/* =========================================
+   SUMMARY LINE
+========================================= */
+
+.summary-line {
+    display: flex;
+    justify-content: space-between;
+
+    padding: 15px 0;
+
+    border-bottom: 1px solid #eee;
+
+    font-size: 14px;
+}
+
+.summary-line strong {
+    font-weight: 600;
+}
+
+
+/* =========================================
+   SUMMARY TOTAL
+========================================= */
+
+.summary-total {
+    display: flex;
+    justify-content: space-between;
+
+    padding: 20px 0;
+
+    font-size: 17px;
+}
+
+.summary-total strong {
+    font-weight: 600;
+}
+
+
+/* =========================================
+   CHECKOUT BUTTON
+========================================= */
+
+.checkout-button {
+    width: 100%;
+
+    min-height: 50px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 15px;
+
+    border: none;
+
+    background: #222;
+    color: #fff;
+
+    text-decoration: none;
+
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+
+    cursor: pointer;
+
+    transition: 0.2s ease;
+}
+
+.checkout-button:hover {
+    background: #444;
+}
+
+
+/* =========================================
+   DISABLED CHECKOUT
+========================================= */
+
+.checkout-disabled {
+    background: #ccc;
+    color: #777;
+
+    cursor: not-allowed;
+}
+
+.checkout-disabled:hover {
+    background: #ccc;
+}
+
+
+/* =========================================
+   CHECKOUT WARNING
+========================================= */
+
+.checkout-warning {
+    margin-top: 12px;
+
+    font-size: 11px;
+    line-height: 1.5;
+
+    color: #a00000;
+
+    text-align: center;
+}
+
+
+/* =========================================
+   EMPTY CART
+========================================= */
+
+.empty-cart {
+    min-height: 420px;
+
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+    justify-content: center;
+
+    text-align: center;
+}
+
+.empty-cart-icon {
+    font-size: 45px;
+    margin-bottom: 20px;
+}
+
+.empty-cart h2 {
+    font-family: Georgia, "Times New Roman", serif;
+
+    font-size: 30px;
+    font-weight: 400;
+
+    margin-bottom: 12px;
+}
+
+.empty-cart p {
+    color: #666;
+
+    font-size: 14px;
+
+    margin-bottom: 25px;
+}
+
+
+/* =========================================
+   CONTINUE SHOPPING
+========================================= */
+
+.continue-shopping-button {
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    min-height: 44px;
+
+    padding: 0 28px;
+
+    background: #222;
+    color: #fff;
+
+    text-decoration: none;
+
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+
+    transition: 0.2s ease;
+}
+
+.continue-shopping-button:hover {
+    background: #444;
+}
+
+
+/* =========================================
+   TABLET
+========================================= */
+
+@media (max-width: 1050px) {
+
+    .cart-container {
+        grid-template-columns: minmax(0, 1fr) 300px;
+        gap: 35px;
+    }
+
+    .cart-item {
+        grid-template-columns: 120px minmax(0, 1fr) 90px 100px;
+        gap: 18px;
+    }
+
+    .cart-item-image {
+        width: 120px;
+        height: 155px;
+    }
+
+}
+
+
+/* =========================================
+   TABLET / SMALL LAPTOP
+========================================= */
+
+@media (max-width: 900px) {
+
+    .cart-container {
+        grid-template-columns: 1fr;
+    }
+
+    .cart-summary {
+        position: static;
+    }
+
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 650px) {
+
+    .cart-page {
+        width: 92%;
+        margin: 50px auto 70px;
+    }
+
+    .cart-header h1 {
+        font-size: 38px;
+    }
+
+    .cart-item {
+        grid-template-columns: 100px minmax(0, 1fr);
+
+        gap: 15px;
+
+        padding: 20px 0;
+    }
+
+    .cart-item-image {
+        width: 100px;
+        height: 130px;
+
+        grid-row: span 2;
+    }
+
+    .cart-quantity {
+        grid-column: 2;
+    }
+
+    .cart-subtotal {
+        grid-column: 2;
+    }
+
+    .cart-summary {
+        padding: 25px 20px;
+    }
+
+}
+
+
+/* =========================================
+   SMALL MOBILE
+========================================= */
+
+@media (max-width: 450px) {
+
+    .cart-header h1 {
+        font-size: 34px;
+    }
+
+    .cart-item {
+        grid-template-columns: 85px minmax(0, 1fr);
+        gap: 12px;
+    }
+
+    .cart-item-image {
+        width: 85px;
+        height: 115px;
+    }
+
+    .cart-item-info h2 {
+        font-size: 17px;
+    }
+
+}

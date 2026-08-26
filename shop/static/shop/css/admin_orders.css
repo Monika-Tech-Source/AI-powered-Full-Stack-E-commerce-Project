@@ -1,0 +1,165 @@
+.admin-orders-page {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 70px 40px;
+}
+
+
+.admin-orders-header {
+    margin-bottom: 40px;
+}
+
+
+.admin-label {
+    font-size: 12px;
+    letter-spacing: 3px;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+
+.admin-orders-header h1 {
+    font-size: 42px;
+    margin: 0 0 12px;
+}
+
+
+.admin-orders-header p {
+    color: #777;
+}
+
+
+.orders-table-wrapper {
+    overflow-x: auto;
+    border: 1px solid #e5e5e5;
+}
+
+
+.orders-table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 1000px;
+}
+
+
+.orders-table th {
+    text-align: left;
+    padding: 18px;
+    background: #f7f7f7;
+    font-size: 12px;
+    letter-spacing: 1px;
+}
+
+
+.orders-table td {
+    padding: 20px 18px;
+    border-top: 1px solid #eeeeee;
+    vertical-align: middle;
+}
+
+
+.orders-table small {
+    color: #888;
+}
+
+
+.status-badge {
+    display: inline-block;
+    padding: 7px 12px;
+    font-size: 11px;
+    letter-spacing: 1px;
+    border: 1px solid #ddd;
+}
+
+
+.status-placed {
+    background: #fff8e8;
+}
+
+
+.status-confirmed {
+    background: #eef7ff;
+}
+
+
+.status-shipped {
+    background: #f2efff;
+}
+
+
+.status-outfordelivery {
+    background: #fff0e8;
+}
+
+
+.status-delivered {
+    background: #edf8f0;
+}
+
+
+.status-cancelled {
+    background: #ffecec;
+}
+
+
+.orders-table form {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+
+.orders-table select {
+    padding: 9px 10px;
+    border: 1px solid #ccc;
+    background: white;
+}
+
+
+.orders-table button {
+    padding: 9px 14px;
+    border: none;
+    background: #111;
+    color: white;
+    cursor: pointer;
+    font-size: 11px;
+    letter-spacing: 1px;
+}
+
+
+.orders-table button:hover {
+    opacity: 0.8;
+}
+
+
+.completed {
+    font-size: 11px;
+    letter-spacing: 1px;
+}
+
+
+.cancelled {
+    font-size: 11px;
+    letter-spacing: 1px;
+}
+
+
+.no-orders {
+    text-align: center;
+    padding: 50px !important;
+    color: #888;
+}
+
+
+@media (max-width: 768px) {
+
+    .admin-orders-page {
+        padding: 40px 20px;
+    }
+
+
+    .admin-orders-header h1 {
+        font-size: 32px;
+    }
+
+}

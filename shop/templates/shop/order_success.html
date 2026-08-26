@@ -1,0 +1,39 @@
+{% extends 'shop/base.html' %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'shop/css/order_success.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<section class="order-success-page">
+
+    <div class="success-box">
+
+        <div class="success-icon">
+            ✓
+        </div>
+
+        <p class="success-label">
+            ORDER CONFIRMED
+        </p>
+
+        <h1>
+            Order Placed Successfully
+        </h1>
+
+        <p class="success-message">
+            Thank you for shopping with us.
+            Your order has been successfully placed.
+        </p>
+
+        <a href="{% url 'home' %}" class="continue-shopping-button">
+            CONTINUE SHOPPING
+        </a>
+
+    </div>
+
+</section>
+
+{% endblock %}

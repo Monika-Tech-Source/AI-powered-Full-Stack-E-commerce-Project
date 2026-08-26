@@ -1,0 +1,528 @@
+{% extends 'shop/base.html' %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'shop/css/checkout.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<section class="checkout-page">
+
+    <!-- =========================================
+         CHECKOUT HEADER
+         ========================================= -->
+
+    <div class="checkout-header">
+
+        <p class="checkout-label">
+            SECURE CHECKOUT
+        </p>
+
+        <h1>
+            Checkout
+        </h1>
+
+        <p class="checkout-description">
+            Complete your details to place your order.
+        </p>
+
+    </div>
+
+
+    <!-- =========================================
+         DJANGO MESSAGES
+         ========================================= -->
+
+    {% if messages %}
+
+        <div class="checkout-messages">
+
+            {% for message in messages %}
+
+                <div class="checkout-message">
+                    {{ message }}
+                </div>
+
+            {% endfor %}
+
+        </div>
+
+    {% endif %}
+
+
+    <!-- =========================================
+         CHECKOUT FORM
+         ========================================= -->
+
+    <form
+        method="POST"
+        class="checkout-form"
+    >
+
+        {% csrf_token %}
+
+
+        <div class="checkout-container">
+
+
+            <!-- =========================================
+                 LEFT SIDE
+                 DELIVERY INFORMATION
+                 ========================================= -->
+
+            <div class="checkout-left">
+
+
+                <!-- =====================================
+                     DELIVERY DETAILS
+                     ===================================== -->
+
+                <div class="checkout-section">
+
+                    <div class="section-heading">
+
+                        <p class="section-number">
+                            01
+                        </p>
+
+                        <h2>
+                            Delivery Information
+                        </h2>
+
+                    </div>
+
+
+                    <!-- NAME -->
+
+                    <div class="form-group">
+
+                        <label for="delivery_name">
+                            FULL NAME
+                        </label>
+
+                        <input
+                            type="text"
+                            id="delivery_name"
+                            name="delivery_name"
+                            placeholder="Enter your full name"
+                            required
+                        >
+
+                    </div>
+
+
+                    <!-- PHONE -->
+
+                    <div class="form-group">
+
+                        <label for="delivery_phone">
+                            PHONE NUMBER
+                        </label>
+
+                        <input
+                            type="tel"
+                            id="delivery_phone"
+                            name="delivery_phone"
+                            placeholder="10-digit mobile number"
+                            maxlength="10"
+                            pattern="[0-9]{10}"
+                            required
+                        >
+
+                    </div>
+
+
+                    <!-- ADDRESS LINE 1 -->
+
+                    <div class="form-group">
+
+                        <label for="delivery_address_line1">
+                            ADDRESS
+                        </label>
+
+                        <input
+                            type="text"
+                            id="delivery_address_line1"
+                            name="delivery_address_line1"
+                            placeholder="House number, street, area"
+                            required
+                        >
+
+                    </div>
+
+
+                    <!-- ADDRESS LINE 2 -->
+
+                    <div class="form-group">
+
+                        <label for="delivery_address_line2">
+                            ADDRESS LINE 2
+                            <span>(OPTIONAL)</span>
+                        </label>
+
+                        <input
+                            type="text"
+                            id="delivery_address_line2"
+                            name="delivery_address_line2"
+                            placeholder="Apartment, landmark, etc."
+                        >
+
+                    </div>
+
+
+                    <!-- CITY + STATE -->
+
+                    <div class="form-row">
+
+                        <div class="form-group">
+
+                            <label for="delivery_city">
+                                CITY
+                            </label>
+
+                            <input
+                                type="text"
+                                id="delivery_city"
+                                name="delivery_city"
+                                placeholder="Enter city"
+                                required
+                            >
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label for="delivery_state">
+                                STATE
+                            </label>
+
+                            <input
+                                type="text"
+                                id="delivery_state"
+                                name="delivery_state"
+                                placeholder="Enter state"
+                                required
+                            >
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- PINCODE + COUNTRY -->
+
+                    <div class="form-row">
+
+                        <div class="form-group">
+
+                            <label for="delivery_pincode">
+                                PINCODE
+                            </label>
+
+                            <input
+                                type="text"
+                                id="delivery_pincode"
+                                name="delivery_pincode"
+                                placeholder="6-digit pincode"
+                                maxlength="6"
+                                pattern="[0-9]{6}"
+                                required
+                            >
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label for="delivery_country">
+                                COUNTRY
+                            </label>
+
+                            <input
+                                type="text"
+                                id="delivery_country"
+                                name="delivery_country"
+                                value="India"
+                                required
+                            >
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- =====================================
+                     PAYMENT INFORMATION
+                     ===================================== -->
+
+                <div class="checkout-section payment-section">
+
+                    <div class="section-heading">
+
+                        <p class="section-number">
+                            02
+                        </p>
+
+                        <h2>
+                            Payment Method
+                        </h2>
+
+                    </div>
+
+
+                    <div class="payment-options">
+
+
+                        <!-- COD -->
+
+                        <label class="payment-option">
+
+                            <input
+                                type="radio"
+                                name="payment_method"
+                                value="Cash on Delivery"
+                                required
+                            >
+
+                            <span class="payment-radio"></span>
+
+                            <span class="payment-content">
+
+                                <strong>
+                                    Cash on Delivery
+                                </strong>
+
+                                <small>
+                                    Pay when your order arrives.
+                                </small>
+
+                            </span>
+
+                        </label>
+
+
+                        <!-- UPI -->
+
+                        <label class="payment-option">
+
+                            <input
+                                type="radio"
+                                name="payment_method"
+                                value="UPI"
+                            >
+
+                            <span class="payment-radio"></span>
+
+                            <span class="payment-content">
+
+                                <strong>
+                                    UPI
+                                </strong>
+
+                                <small>
+                                    Pay securely using UPI.
+                                </small>
+
+                            </span>
+
+                        </label>
+
+
+                        <!-- CARD -->
+
+                        <label class="payment-option">
+
+                            <input
+                                type="radio"
+                                name="payment_method"
+                                value="Card"
+                            >
+
+                            <span class="payment-radio"></span>
+
+                            <span class="payment-content">
+
+                                <strong>
+                                    Credit / Debit Card
+                                </strong>
+
+                                <small>
+                                    Pay using your card.
+                                </small>
+
+                            </span>
+
+                        </label>
+
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- =========================================
+                 RIGHT SIDE
+                 ORDER SUMMARY
+                 ========================================= -->
+
+            <aside class="checkout-summary">
+
+
+                <div class="summary-header">
+
+                    <p>
+                        YOUR ORDER
+                    </p>
+
+                    <h2>
+                        Order Summary
+                    </h2>
+
+                </div>
+
+
+                <!-- =====================================
+                     ORDER ITEMS
+                     ===================================== -->
+
+                <div class="summary-items">
+
+                    {% for item in cart_items %}
+
+                    <div class="summary-item">
+
+
+                        <!-- IMAGE -->
+
+                        <div class="summary-image">
+
+                            <img
+                                src="{% static item.variant.product.image_url %}"
+                                alt="{{ item.variant.product.product_name }}"
+                            >
+
+                        </div>
+
+
+                        <!-- INFORMATION -->
+
+                        <div class="summary-item-info">
+
+                            <p class="summary-brand">
+                                {{ item.variant.product.brand }}
+                            </p>
+
+                            <h3>
+                                {{ item.variant.product.product_name }}
+                            </h3>
+
+                            <p class="summary-size">
+                                Size: {{ item.variant.size }}
+                            </p>
+
+                            <p class="summary-quantity">
+                                Qty: {{ item.quantity }}
+                            </p>
+
+                        </div>
+
+
+                        <!-- PRICE -->
+
+                        <div class="summary-item-price">
+
+                            ₹{{ item.subtotal|floatformat:2 }}
+
+                        </div>
+
+
+                    </div>
+
+                    {% endfor %}
+
+                </div>
+
+
+                <!-- =====================================
+                     PRICE DETAILS
+                     ===================================== -->
+
+                <div class="summary-prices">
+
+                    <div class="summary-line">
+
+                        <span>
+                            Subtotal
+                        </span>
+
+                        <strong>
+                            ₹{{ total|floatformat:2 }}
+                        </strong>
+
+                    </div>
+
+
+                    <div class="summary-line">
+
+                        <span>
+                            Shipping
+                        </span>
+
+                        <strong>
+                            FREE
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <!-- =====================================
+                     TOTAL
+                     ===================================== -->
+
+                <div class="summary-total">
+
+                    <span>
+                        Total
+                    </span>
+
+                    <strong>
+                        ₹{{ total|floatformat:2 }}
+                    </strong>
+
+                </div>
+
+
+                <!-- =====================================
+                     PLACE ORDER
+                     ===================================== -->
+
+                <button
+                    type="submit"
+                    class="place-order-button"
+                >
+                    PLACE ORDER
+                </button>
+
+
+                <p class="secure-note">
+                    Your order information is securely processed.
+                </p>
+
+
+            </aside>
+
+        </div>
+
+    </form>
+
+</section>
+
+{% endblock %}

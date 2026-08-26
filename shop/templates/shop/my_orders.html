@@ -1,0 +1,264 @@
+{% extends 'shop/base.html' %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'shop/css/my_orders.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<section class="orders-page">
+
+    <!-- =========================================
+         PAGE HEADER
+         ========================================= -->
+
+    <div class="orders-header">
+
+        <p class="orders-label">
+            MY ACCOUNT
+        </p>
+
+        <h1>
+            My Orders
+        </h1>
+
+        <p class="orders-description">
+            View your recent orders and order details.
+        </p>
+
+    </div>
+
+
+    {% if orders %}
+
+        <!-- =========================================
+             ORDERS LIST
+             ========================================= -->
+
+        <div class="orders-list">
+
+            {% for order in orders %}
+
+                <!-- =================================
+                     ORDER CARD
+                     ================================= -->
+
+                <div class="order-card
+
+                    {% if order.order_status == 'PLACED' %}
+                        status-placed
+
+                    {% elif order.order_status == 'CONFIRMED' %}
+                        status-confirmed
+
+                    {% elif order.order_status == 'SHIPPED' %}
+                        status-shipped
+
+                    {% elif order.order_status == 'OUT FOR DELIVERY' %}
+                        status-out-for-delivery
+
+                    {% elif order.order_status == 'DELIVERED' %}
+                        status-delivered
+
+                    {% elif order.order_status == 'CANCELLED' %}
+                        status-cancelled
+                    {% endif %}
+
+                ">
+
+
+                    <!-- =================================
+                         TOP DECORATIVE LINE
+                         ================================= -->
+
+                    <div class="order-card-top-line"></div>
+
+
+                    <!-- =================================
+                         ORDER HEADER
+                         ================================= -->
+
+                    <div class="order-header">
+
+                        <div class="order-number">
+
+                            <p class="order-label">
+                                ORDER
+                            </p>
+
+                            <h2>
+                                #{{ order.order_id }}
+                            </h2>
+
+                        </div>
+
+
+                        <!-- STATUS -->
+
+                        <div class="order-status">
+
+                            <span class="status-dot"></span>
+
+                            <span>
+                                {{ order.order_status }}
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- =================================
+                         ORDER DETAILS
+                         ================================= -->
+
+                    <div class="order-details">
+
+
+                        <!-- ORDER DATE -->
+
+                        <div class="order-detail">
+
+                            <span>
+                                ORDER DATE
+                            </span>
+
+                            <strong>
+                                {{ order.order_date|date:"d M Y" }}
+                            </strong>
+
+                        </div>
+
+
+                        <!-- PAYMENT METHOD -->
+
+                        <div class="order-detail">
+
+                            <span>
+                                PAYMENT METHOD
+                            </span>
+
+                            <strong>
+                                {{ order.payment_method }}
+                            </strong>
+
+                        </div>
+
+
+                        <!-- TOTAL -->
+
+                        <div class="order-detail">
+
+                            <span>
+                                TOTAL
+                            </span>
+
+                            <strong class="order-total">
+                                ₹{{ order.total_amount|floatformat:2 }}
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- =================================
+                         ORDER FOOTER
+                         ================================= -->
+
+                    <div class="order-footer">
+
+                        <div class="order-footer-status">
+
+                            {% if order.order_status == 'PLACED' %}
+
+                                <span>
+                                    Your order has been placed.
+                                </span>
+
+                            {% elif order.order_status == 'CONFIRMED' %}
+
+                                <span>
+                                    Your order has been confirmed.
+                                </span>
+
+                            {% elif order.order_status == 'SHIPPED' %}
+
+                                <span>
+                                    Your order is on its way.
+                                </span>
+
+                            {% elif order.order_status == 'OUT FOR DELIVERY' %}
+
+                                <span>
+                                    Your order is out for delivery.
+                                </span>
+
+                            {% elif order.order_status == 'DELIVERED' %}
+
+                                <span>
+                                    Your order has been delivered.
+                                </span>
+
+                            {% elif order.order_status == 'CANCELLED' %}
+
+                                <span>
+                                    This order has been cancelled.
+                                </span>
+
+                            {% endif %}
+
+                        </div>
+
+
+                        <!-- VIEW ORDER -->
+
+                        <a
+                            href="{% url 'order_detail' order.order_id %}"
+                            class="view-order-button"
+                        >
+                            VIEW ORDER
+                            <span class="view-arrow">→</span>
+                        </a>
+
+                    </div>
+
+                </div>
+
+            {% endfor %}
+
+        </div>
+
+
+    {% else %}
+
+        <!-- =========================================
+             EMPTY ORDERS
+             ========================================= -->
+
+        <div class="empty-orders">
+
+            <div class="empty-orders-icon">
+                ♡
+            </div>
+
+            <h2>
+                No orders yet.
+            </h2>
+
+            <p>
+                Your placed orders will appear here.
+            </p>
+
+            <a href="/">
+                CONTINUE SHOPPING
+            </a>
+
+        </div>
+
+    {% endif %}
+
+</section>
+
+{% endblock %}

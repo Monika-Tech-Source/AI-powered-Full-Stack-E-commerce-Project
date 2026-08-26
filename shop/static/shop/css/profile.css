@@ -1,0 +1,365 @@
+/* =========================================
+   PROFILE PAGE
+   ========================================= */
+
+.profile-page {
+    width: 90%;
+    max-width: 1100px;
+    margin: 70px auto 100px;
+}
+
+
+/* =========================================
+   HEADER
+   ========================================= */
+
+.profile-header {
+    margin-bottom: 50px;
+}
+
+.profile-label {
+    font-size: 11px;
+    letter-spacing: 2px;
+    color: #777;
+    margin-bottom: 15px;
+}
+
+.profile-header h1 {
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 42px;
+    font-weight: 400;
+    margin-bottom: 15px;
+}
+
+.profile-description {
+    color: #666;
+    font-size: 14px;
+}
+
+
+/* =========================================
+   MESSAGES
+   ========================================= */
+
+.profile-messages {
+    margin-bottom: 30px;
+}
+
+.profile-message {
+    padding: 14px 18px;
+    border: 1px solid #ddd;
+    background: #fafafa;
+    color: #333;
+    font-size: 13px;
+}
+
+
+/* =========================================
+   PROFILE LAYOUT
+   ========================================= */
+
+.profile-container {
+    display: grid;
+    grid-template-columns: 1fr 300px;
+    gap: 60px;
+    align-items: start;
+}
+
+
+/* =========================================
+   PROFILE SECTION
+   ========================================= */
+
+.profile-section {
+    border-top: 1px solid #ddd;
+    padding-top: 30px;
+}
+
+
+/* =========================================
+   SECTION HEADING
+   ========================================= */
+
+.section-heading {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    margin-bottom: 35px;
+}
+
+.section-heading span {
+    font-size: 10px;
+    letter-spacing: 2px;
+    color: #777;
+}
+
+.section-heading h2 {
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 25px;
+    font-weight: 400;
+    margin: 0;
+}
+
+.address-heading {
+    margin-top: 50px;
+}
+
+
+/* =========================================
+   FORM
+   ========================================= */
+
+.profile-form {
+    width: 100%;
+}
+
+.form-group {
+    margin-bottom: 25px;
+}
+
+.form-group label {
+    display: block;
+    font-size: 10px;
+    letter-spacing: 2px;
+    color: #555;
+    margin-bottom: 9px;
+}
+
+.form-group label span {
+    color: #888;
+    letter-spacing: 1px;
+}
+
+.form-group input {
+    width: 100%;
+    height: 48px;
+    padding: 0 14px;
+    border: 1px solid #ccc;
+    background: #fff;
+    color: #222;
+    font-size: 13px;
+    outline: none;
+    box-sizing: border-box;
+}
+
+.form-group input:focus {
+    border-color: #222;
+}
+
+.form-group input::placeholder {
+    color: #aaa;
+}
+
+
+/* =========================================
+   FORM ROW
+   ========================================= */
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+
+/* =========================================
+   PROFILE ACTIONS
+   ========================================= */
+
+.profile-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 35px;
+    padding-top: 30px;
+    border-top: 1px solid #ddd;
+}
+
+.save-profile-button {
+    min-height: 46px;
+    padding: 0 30px;
+    border: none;
+    background: #222;
+    color: #fff;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    cursor: pointer;
+}
+
+.save-profile-button:hover {
+    background: #444;
+}
+
+.cancel-profile-button {
+    min-height: 44px;
+    padding: 0 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #222;
+    color: #222;
+    background: #fff;
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-decoration: none;
+}
+
+.cancel-profile-button:hover {
+    background: #222;
+    color: #fff;
+}
+
+
+/* =========================================
+   PROFILE SUMMARY
+   ========================================= */
+
+.profile-summary {
+    border: 1px solid #ddd;
+    padding: 30px;
+    text-align: center;
+}
+
+.profile-avatar {
+    width: 70px;
+    height: 70px;
+    margin: 0 auto 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #222;
+    border-radius: 50%;
+    font-size: 30px;
+}
+
+.profile-summary h2 {
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 23px;
+    font-weight: 400;
+    margin-bottom: 8px;
+}
+
+.profile-summary > p {
+    color: #777;
+    font-size: 12px;
+    word-break: break-word;
+}
+
+
+/* =========================================
+   SUMMARY
+   ========================================= */
+
+.summary-divider {
+    height: 1px;
+    background: #eee;
+    margin: 25px 0;
+}
+
+.summary-item {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.summary-item span {
+    font-size: 9px;
+    letter-spacing: 2px;
+    color: #777;
+}
+
+.summary-item strong {
+    font-size: 13px;
+    font-weight: 400;
+}
+
+
+/* =========================================
+   MY ORDERS
+   ========================================= */
+
+.orders-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 44px;
+    background: #222;
+    color: #fff;
+    text-decoration: none;
+    font-size: 10px;
+    letter-spacing: 2px;
+    margin-bottom: 12px;
+}
+
+.orders-button:hover {
+    background: #444;
+}
+
+
+/* =========================================
+   LOGOUT
+   ========================================= */
+
+.profile-logout {
+    display: block;
+    color: #555;
+    text-decoration: none;
+    font-size: 10px;
+    letter-spacing: 2px;
+}
+
+.profile-logout:hover {
+    color: #b40000;
+}
+
+
+/* =========================================
+   TABLET
+   ========================================= */
+
+@media (max-width: 900px) {
+
+    .profile-container {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+
+    .profile-summary {
+        max-width: 400px;
+    }
+
+}
+
+
+/* =========================================
+   MOBILE
+   ========================================= */
+
+@media (max-width: 600px) {
+
+    .profile-page {
+        width: 92%;
+        margin: 45px auto 60px;
+    }
+
+    .profile-header h1 {
+        font-size: 34px;
+    }
+
+    .form-row {
+        grid-template-columns: 1fr;
+        gap: 0;
+    }
+
+    .profile-actions {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .save-profile-button,
+    .cancel-profile-button {
+        width: 100%;
+    }
+
+}

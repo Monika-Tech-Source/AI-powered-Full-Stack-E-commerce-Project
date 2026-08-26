@@ -1,0 +1,134 @@
+{% extends 'shop/base.html' %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'shop/css/wishlist.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<section class="wishlist-page">
+
+    <div class="wishlist-header">
+        <p class="wishlist-label">YOUR COLLECTION</p>
+        <h1>My Wishlist</h1>
+        <p class="wishlist-subtitle">
+            Products you've saved for later.
+        </p>
+    </div>
+
+
+    {% if wishlist_items %}
+
+        <div class="wishlist-grid">
+
+            {% for item in wishlist_items %}
+
+                <article class="wishlist-card">
+
+                    <!-- PRODUCT IMAGE -->
+
+                    <a href="{% url 'product_detail' item.product.product_id %}"
+                       class="wishlist-image-link">
+
+                        <div class="wishlist-image">
+
+                            <img
+                                src="{% static item.product.image_url %}"
+                                alt="{{ item.product.product_name }}"
+                            >
+
+                        </div>
+
+                    </a>
+
+
+                    <!-- PRODUCT INFORMATION -->
+
+                    <div class="wishlist-info">
+
+                        <p class="wishlist-brand">
+                            {{ item.product.brand }}
+                        </p>
+
+                        <h2>
+                            <a href="{% url 'product_detail' item.product.product_id %}">
+                                {{ item.product.product_name }}
+                            </a>
+                        </h2>
+
+                        <p class="wishlist-price">
+                            ₹{{ item.product.price }}
+                        </p>
+
+
+                        <!-- ACTIONS -->
+
+                        <div class="wishlist-actions">
+
+                            <!-- VIEW PRODUCT -->
+
+                            <a
+                                href="{% url 'product_detail' item.product.product_id %}"
+                                class="wishlist-view-button"
+                            >
+                                VIEW PRODUCT
+                            </a>
+
+
+                            <!-- REMOVE FROM WISHLIST -->
+
+                            <form
+                                method="POST"
+                                action="{% url 'toggle_wishlist' item.product.product_id %}"
+                            >
+
+                                {% csrf_token %}
+
+                                <button
+                                    type="submit"
+                                    class="wishlist-remove-button"
+                                >
+                                    ♡ REMOVE
+                                </button>
+
+                            </form>
+
+                        </div>
+
+                    </div>
+
+                </article>
+
+            {% endfor %}
+
+        </div>
+
+    {% else %}
+
+        <div class="wishlist-empty">
+
+            <div class="wishlist-empty-icon">
+                ♡
+            </div>
+
+            <h2>Your wishlist is empty</h2>
+
+            <p>
+                Save products you love and find them here later.
+            </p>
+
+            <a
+                href="{% url 'home' %}"
+                class="wishlist-shop-button"
+            >
+                CONTINUE SHOPPING
+            </a>
+
+        </div>
+
+    {% endif %}
+
+</section>
+
+{% endblock %}

@@ -1,0 +1,142 @@
+<header class="site-header">
+
+    <div class="header-container">
+
+        <!-- LEFT: NAVIGATION -->
+        <nav class="main-navigation">
+
+            <a href="{% url 'category_products' 2 %}">
+                Women
+            </a>
+
+            <a href="{% url 'category_products' 1 %}">
+                Men
+            </a>
+
+            <a href="{% url 'category_products' 3 %}">
+                Kids
+            </a>
+
+            <a href="{% url 'category_products' 9 %}">
+                Accessories
+            </a>
+
+        </nav>
+
+
+        <!-- CENTER: LOGO -->
+        <div class="site-logo">
+
+            <a href="{% url 'home' %}">
+                BHAVIKA
+            </a>
+
+        </div>
+
+
+        <!-- RIGHT: SEARCH + ACCOUNT + WISHLIST + CART -->
+        <div class="header-actions">
+
+
+            <!-- SEARCH -->
+
+            <form
+                method="GET"
+                action="{% url 'search_products' %}"
+                class="search-box"
+            >
+
+                <span class="search-icon">⌕</span>
+
+                <input
+                    type="text"
+                    name="q"
+                    placeholder="Search products"
+                >
+
+            </form>
+
+
+            <!-- ACCOUNT -->
+
+            {% if request.session.user_id %}
+
+                <div class="account-menu">
+
+                    <a
+                        href="{% url 'profile' %}"
+                        class="account-link"
+                    >
+                        ♙ My Profile
+                    </a>
+
+
+                    <!-- ADMIN PANEL -->
+
+                    {% if is_admin %}
+
+                        <a
+                            href="{% url 'admin_dashboard' %}"
+                            class="account-link"
+                        >
+                            Admin Panel
+                        </a>
+
+                    {% endif %}
+
+
+                    <a
+                        href="{% url 'logout' %}"
+                        class="account-link"
+                    >
+                        Logout
+                    </a>
+
+                </div>
+
+            {% else %}
+
+                <a
+                    href="{% url 'login' %}"
+                    class="account-link"
+                >
+                    Login
+                </a>
+
+                <a
+                    href="{% url 'register' %}"
+                    class="account-link"
+                >
+                    Register
+                </a>
+
+            {% endif %}
+
+
+            <!-- WISHLIST -->
+
+            <a
+                href="{% url 'wishlist' %}"
+                class="header-icon"
+                title="Wishlist"
+            >
+                ♡
+            </a>
+
+
+            <!-- CART -->
+
+            <a
+                href="{% url 'cart' %}"
+                class="header-icon"
+                title="Cart"
+            >
+                🛍
+            </a>
+
+
+        </div>
+
+    </div>
+
+</header>
